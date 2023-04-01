@@ -1,8 +1,10 @@
 import Range from "../../UI/Range/Range";
 import {PlayCircleIcon, ForwardIcon, BackwardIcon, ArrowPathRoundedSquareIcon} from "@heroicons/react/24/solid";
 import ShuffleIcon from "./ShuffleIcon";
+import useRange from "../../../hooks/useRange";
 
 function Player({className}) {
+    useRange();
     return (
         <div className={`${className} flex flex-col grow max-w-screen-lg`}>
             <div className="grow flex flex-row items-center justify-center mb-2">
