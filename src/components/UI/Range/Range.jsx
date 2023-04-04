@@ -1,4 +1,4 @@
-import "./Range.css"
+import "./Range.module.css"
 import {forwardRef} from "react";
 
 function Range({className, min = 0, max = 100, value, setValue}, ref) {

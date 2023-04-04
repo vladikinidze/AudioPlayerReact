@@ -1,9 +1,11 @@
 import {useRef} from "react";
+import {Link} from "react-router-dom";
 
-function MeniItem({href, className, icon, onClick, children: text}) {
+function MeniItem({href, className, icon, onClick, setActive, children: text}) {
     const textRef = useRef();
 
     function actionHandle(event) {
+        setActive();
         if (!onClick) {
             return;
         }
@@ -12,10 +14,10 @@ function MeniItem({href, className, icon, onClick, children: text}) {
     }
 
     return (
-        <a href={href} className={className} onClick={actionHandle}>
+        <Link to={href} className={className} onClick={actionHandle}>
             {icon}
             <span ref={textRef} className="ml-4 mt-1 text-base font-semibold">{text}</span>
-        </a>
+        </Link>
     );
 }
 

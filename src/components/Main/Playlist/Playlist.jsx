@@ -1,4 +1,4 @@
-import {useLayoutEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import useContextMenu from "../../../hooks/useContextMenu";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import Image from "./InnerItems/Image";
