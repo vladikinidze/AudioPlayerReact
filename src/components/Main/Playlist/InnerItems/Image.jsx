@@ -1,19 +1,14 @@
-import {useRef} from "react";
+import {forwardRef} from "react";
 
-function Image({url, setColor}) {
-    const ref = useRef();
-    function setAverageColor() {
-        setColor(ref);
-    }
+function Image({url, setColor}, ref) {
 
     return (
         <img src={url}
              ref={ref}
-             onMouseOver={setAverageColor}
              className="rounded shadow-lg"
              alt=""
         />
     );
 }
 
-export default Image;
+export default forwardRef(Image);

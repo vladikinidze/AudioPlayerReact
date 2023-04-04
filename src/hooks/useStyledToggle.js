@@ -2,7 +2,7 @@ import {useState} from "react";
 
 
 function UseStyledToggle(ref) {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     function open(removeClassName = '', addClassName = '') {
         setIsOpen(true);
@@ -11,10 +11,10 @@ function UseStyledToggle(ref) {
 
     }
 
-    function close(aadClassName = '', removeClassName = '') {
+    function close(addClassName = '', removeClassName = '') {
         setIsOpen(false);
         ref.current.classList.remove(removeClassName);
-        ref.current.classList.add(aadClassName);
+        ref.current.classList.add(addClassName);
 
     }
 
