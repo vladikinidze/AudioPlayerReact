@@ -5,9 +5,11 @@ import Image from "./InnerItems/Image";
 import PlayButton from "./InnerItems/PlayButton";
 import Title from "./InnerItems/Title";
 import Description from "./InnerItems/Description";
+import {useNavigate} from "react-router-dom";
 
 
 function Playlist({
+                      id,
                       className,
                       imageUrl,
                       title,
@@ -57,8 +59,11 @@ function Playlist({
         ];
     }
 
+    const imageRef = useRef();
     const menuItems = generateMenuItems();
     const menu = useContextMenu(menuItems);
+
+    const navigate = useNavigate();
 
     const bgClass = menu.isOpen
         ? "bg-[#272727]"
@@ -68,13 +73,24 @@ function Playlist({
         toggleScrolling(!menu.isOpen);
     });
 
+    function clickHandler(event) {
+        event.preventDefault();
+        navigate(`/${id}`);
+    }
+
+    function setAverageColor() {
+        setColor(imageRef);
+    }
+
     return (
-        <a href="/"
+        <a href={`/${id}`}
            className={`relative p-5 rounded-md duration-200 group ${bgClass} ${className}`}
            onContextMenu={menu.open}
-           onClick={(event) => event.preventDefault()}>
+           onMouseOver={setAverageColor}
+           onClick={clickHandler}>
             <div className="relative">
-                <Image url={imageUrl}
+                <Image ref={imageRef}
+                       url={imageUrl}
                        setColor={setColor}/>
                 <PlayButton/>
             </div>

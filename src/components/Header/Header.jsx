@@ -6,14 +6,20 @@ import {
     Bars3Icon
 } from '@heroicons/react/24/outline'
 
-function Header() {
+function Header({openSidebar}) {
+
+    function clickHandler() {
+        openSidebar('-translate-x-full', 'translate-x-0')
+    }
+
     return (
         <header
-            className="bg-[#070707] flex-1 flex justify-between items-center py-[10px] px-[13px] sm:px-[32px] sticky top-0 z-10">
+            className="bg-[#070707] flex justify-between items-center py-[10px] px-[13px] sm:px-[32px] sticky top-0 z-10">
             <div className="flex">
-                <a href="#sidebar" className="mr-[8px] text-[#969696] p-1 -ml-1.5 inline-block lg:hidden">
+                <button className="mr-[8px] text-[#969696] p-1 -ml-1.5 inline-block sidebarHide:hidden"
+                        onClick={clickHandler}>
                     <Bars3Icon className="h-6 w-6"/>
-                </a>
+                </button>
                 {/*<a href="/" className="mr-[8px] text-[#969696] p-1 cursor-not-allowed">*/}
                 {/*    <ChevronLeftIcon className="h-6 w-6"/>*/}
                 {/*</a>*/}
@@ -30,7 +36,6 @@ function Header() {
                 </Button>
             </div>
         </header>
-
     );
 }
 

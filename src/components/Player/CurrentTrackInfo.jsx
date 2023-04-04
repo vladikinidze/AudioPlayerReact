@@ -1,5 +1,5 @@
 import React from 'react';
-import piro from "../../Main/piro.jpg";
+import piro from "../Main/piro.jpg";
 import {HeartIcon} from "@heroicons/react/24/outline";
 
 function CurrentTrackInfo() {

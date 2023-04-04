@@ -6,28 +6,39 @@ import {
     HeartIcon
 } from '@heroicons/react/24/outline';
 import MeniItem from "./MeniItem";
+import {useState} from "react";
 
 function Menu({showPopup}) {
+
+    const [activeItem, setActiveItem] = useState('Главная');
+
     const activeMenuItem = "flex items-center text-white bg-[#282828] mx-2 px-4 py-2 rounded";
     const menuItem = "flex items-center hover:text-white mx-2 px-4 py-2 rounded duration-300";
     const menu = [
         {
             href: "/",
-            className: activeMenuItem,
             icon: <HomeIcon className="h-7 w-7"/>,
-            text: "Главная"
+            text: "Главная",
+            setActive: () => {
+                setActiveItem('Главная');
+            }
         },
         {
-            href: "/",
-            className: menuItem,
+            href: "/search",
             icon: <MagnifyingGlassIcon className="h-7 w-7"/>,
-            text: "Поиск"
+            text: "Поиск",
+            setActive: () => {
+                setActiveItem('Поиск');
+            }
         },
         {
-            href: "/",
-            className: `${menuItem} mb-6`,
+            href: "/library",
+            className: 'mb-6',
             icon: <ViewColumnsIcon className="h-7 w-7"/>,
             text: "Медиатека",
+            setActive: () => {
+                setActiveItem('Медиатека');
+            },
             action: (target) => {
                 showPopup(
                     'Сохраняйте в медиатеку',
@@ -38,9 +49,11 @@ function Menu({showPopup}) {
         },
         {
             href: "/",
-            className: menuItem,
             icon: <PlusCircleIcon className="h-7 w-7"/>,
             text: "Создать плейлист",
+            setActive: () => {
+                setActiveItem('Создать плейлист');
+            },
             action: (target) => {
                 showPopup(
                     'Создавайте плейлисты',
@@ -50,10 +63,12 @@ function Menu({showPopup}) {
             },
         },
         {
-            href: "/",
-            className: menuItem,
+            href: "/library",
             icon: <HeartIcon className="h-7 w-7"/>,
             text: "Любимая музыка",
+            setActive: () => {
+                setActiveItem('Любимая музыка');
+            },
             action: (target) => {
                 showPopup(
                     'Слушайте любимую музыку',
@@ -65,8 +80,13 @@ function Menu({showPopup}) {
     ];
     return (
         <nav>
-            {menu.map(({href, className, icon, text, action}) => (
-                <MeniItem href={href} className={className} icon={icon} key={text} onClick={action}>
+            {menu.map(({href, className, icon, text, action, setActive}) => (
+                <MeniItem href={href}
+                          className={`${activeItem === text ? activeMenuItem : menuItem} ${className}`}
+                          icon={icon}
+                          key={text}
+                          setActive={setActive}
+                          onClick={action}>
                     {text}
                 </MeniItem>
             ))}
