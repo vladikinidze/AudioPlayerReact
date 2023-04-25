@@ -1,7 +1,7 @@
 import classes from "./Range.module.css"
 import {useRef, useState} from "react";
 
-function Range({min = 0, max = 100}) {
+function Range({className}) {
     const progressRef = useRef();
     const [progress, setProgress] = useState(0);
 
@@ -11,7 +11,7 @@ function Range({min = 0, max = 100}) {
     }
 
     return (
-        <div className={classes.sliderContainer}>
+        <div className={`${classes.sliderContainer} ${className}`}>
             <span className={classes.bar}>
                 <span ref={progressRef}
                       className={classes.fill}></span>

@@ -28,6 +28,12 @@ module.exports = {
             },
             flexGrow: {
                 2: '2'
+            },
+            height: {
+                '4.75': '18px',
+            },
+            width: {
+                '4.75': '18px',
             }
         },
     },
