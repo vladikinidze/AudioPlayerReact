@@ -44,17 +44,6 @@ function Playlist({
                         showNotify('Ссылка скопирована');
                     })
                 },
-                // subMenuItems: [
-                //     {
-                //         text: 'Скопировать ссылку на плейлист',
-                //         action: () => {
-                //             navigator.clipboard.writeText(title).then(() => {
-                //                 menu.close();
-                //                 showNotify('Ссылка скопирована');
-                //             })
-                //         },
-                //     },
-                // ],
             },
         ];
     }
@@ -88,9 +77,9 @@ function Playlist({
 
     return (
         <div className={`relative p-5 rounded-md duration-200 group ${bgClass} ${className}`}
-           onContextMenu={menu.open}
-           onMouseOver={setAverageColor}
-           onClick={clickHandler}>
+             onContextMenu={menu.open}
+             onMouseOver={setAverageColor}
+             onClick={clickHandler}>
             <div className="relative m-auto">
                 <Image ref={imageRef}
                        url={imageUrl}
