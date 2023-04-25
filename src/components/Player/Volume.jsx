@@ -1,28 +1,39 @@
-import {SpeakerWaveIcon, SpeakerXMarkIcon} from "@heroicons/react/24/outline";
-import {useState} from "react";
+import Range from "../UI/Range/Range"
 
-function Volume({value, active, setActive, setVolume}) {
+function Volume({setVolume}) {
 
-    const [previousVolume, setPreviousVolume] = useState(value);
-    function changeVolume(on) {
-        if (on) {
-            setPreviousVolume(value);
-        }
-        setVolume(on ? previousVolume : 0);
-        setActive(on);
-    }
-
-    if (active) {
-        return (
-            <SpeakerWaveIcon onClick={() => changeVolume(false)} className="w-5 h-5 hover:stroke-[#1cb955] ml-5 mr-3"/>
-        );
+    function onChangeHandle(e) {
+        setVolume(e);
     }
 
     return (
-        <SpeakerXMarkIcon onClick={() => changeVolume(true)} className="w-5 h-5 hover:stroke-[#1cb955] ml-5 mr-3"/>
+        <div className="grow">
+            <Range />
+            {/*<Range onChange={e => onChangeHandle(e)}*/}
+            {/*       thumbSize={9}*/}
+            {/*       height={5}*/}
+            {/*       width="100%"*/}
+            {/*       thumbColor={{*/}
+            {/*           r: 28,*/}
+            {/*           g: 185,*/}
+            {/*           b: 85,*/}
+            {/*           a: 1,*/}
+            {/*       }}*/}
+            {/*       fillColor={{*/}
+            {/*           r: 179,*/}
+            {/*           g: 179,*/}
+            {/*           b: 179,*/}
+            {/*           a: 1,*/}
+            {/*       }}*/}
+            {/*       trackColor={{*/}
+            {/*           r: 56,*/}
+            {/*           g: 56,*/}
+            {/*           b: 56,*/}
+            {/*           a: 1,*/}
+            {/*       }}*/}
+            {/*/>*/}
+        </div>
     );
-
-
 }
 
 export default Volume;

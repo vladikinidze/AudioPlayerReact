@@ -1,6 +1,5 @@
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {BrowserRouter} from "react-router-dom";
-import useModal from "./hooks/useModal";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Player from "./components/Player/Player";
 import Popup from "./components/UI/Popup";
@@ -8,23 +7,26 @@ import Modal from "./components/UI/Modal";
 import AppRouter from "./components/AppRouter";
 import useEvent from "./hooks/useEvent";
 import Notify from "./components/UI/Notify";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
+import useModal from "./hooks/useModal";
 import useAverageBackgroundColor from "./hooks/useAverageBackgroundColor";
 import useStyledToggle from "./hooks/useStyledToggle";
-
+import useScrollbar from './hooks/useScrollbar'
+import 'overlayscrollbars/overlayscrollbars.css';
 
 function App() {
+    const scrollWrapperRef = useRef();
     const gradientRef = useRef();
     const popupRef = useRef();
     const notifyRef = useRef();
     const contentWrapperRef = useRef();
-    const modal = useModal();
     const sidebarRef = useRef();
+    const modal = useModal();
     let isScrollingEnabled = true;
-
     const {set: setColor} = useAverageBackgroundColor(gradientRef);
     useEvent('wheel', scrollHandle, true, () => contentWrapperRef.current);
     const sidebarToggle = useStyledToggle(sidebarRef);
+    useScrollbar(scrollWrapperRef)
 
     function scrollHandle(event) {
         if (isScrollingEnabled) return;
@@ -44,22 +46,22 @@ function App() {
         notifyRef.current?.show(message);
     }
 
-
     return (
         <div className="flex flex-col bg-[#121212] overflow-y-hidden">
             <div className="flex h-screen flex-row flex-grow overflow-y-hidden">
                 <BrowserRouter>
                     <Sidebar ref={sidebarRef} showPopup={showPopup} isOpen={sidebarToggle.isOpen}
                              close={sidebarToggle.open}/>
-                    <div className={`fixed inset-0 bg-black opacity-50 pointer-events-none pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
+                    <div
+                        className={`fixed inset-0 bg-black opacity-50 pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
                         onClick={() => sidebarToggle.close('translate-x-0', '-translate-x-full')}></div>
                     <div className="flex flex-col flex-1 overflow-hidden" ref={contentWrapperRef}>
                         <Header openSidebar={sidebarToggle.open}/>
-                        <main className="text-white relative overflow-y-auto grow">
-                            <div ref={gradientRef}
-                                 style={{background: "linear-gradient(to bottom, indianred ,#121212)"}}
+                        <main className="text-white relative overflow-y-hidden grow h-screen" ref={scrollWrapperRef}>
+                            <div
                                  className="absolute w-full h-full"></div>
-                            <div className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl">
+                            <div ref={gradientRef}
+                                className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
                                 <AppRouter showPopup={showPopup}
                                            showNotify={showNotify}
                                            setColor={setColor}

@@ -1,23 +1,24 @@
-import {
-    HomeIcon,
-    MagnifyingGlassIcon,
-    ViewColumnsIcon,
-    PlusCircleIcon,
-    HeartIcon
-} from '@heroicons/react/24/outline';
-import MeniItem from "./MeniItem";
+import MenuItem from "./MenuItem";
 import {useState} from "react";
+import {
+    BiHomeAlt2,
+    BiSearchAlt2,
+    BiCarousel,
+    BiPlusCircle,
+    BiHeart
+} from "react-icons/bi";
+
 
 function Menu({showPopup}) {
 
     const [activeItem, setActiveItem] = useState('Главная');
 
-    const activeMenuItem = "flex items-center text-white bg-[#282828] mx-2 px-4 py-2 rounded";
-    const menuItem = "flex items-center hover:text-white mx-2 px-4 py-2 rounded duration-300";
+    const activeMenuItem = "text-white bg-[#282828]";
+    const menuItem = "hover:text-white hover:bg-[#282828] duration-300 ";
     const menu = [
         {
             href: "/",
-            icon: <HomeIcon className="h-7 w-7"/>,
+            icon: <BiHomeAlt2 className="h-7 w-7"/>,
             text: "Главная",
             setActive: () => {
                 setActiveItem('Главная');
@@ -25,7 +26,7 @@ function Menu({showPopup}) {
         },
         {
             href: "/search",
-            icon: <MagnifyingGlassIcon className="h-7 w-7"/>,
+            icon: <BiSearchAlt2 className="h-7 w-7"/>,
             text: "Поиск",
             setActive: () => {
                 setActiveItem('Поиск');
@@ -34,7 +35,7 @@ function Menu({showPopup}) {
         {
             href: "/library",
             className: 'mb-6',
-            icon: <ViewColumnsIcon className="h-7 w-7"/>,
+            icon: <BiCarousel className="h-7 w-7"/>,
             text: "Медиатека",
             setActive: () => {
                 setActiveItem('Медиатека');
@@ -49,7 +50,7 @@ function Menu({showPopup}) {
         },
         {
             href: "/",
-            icon: <PlusCircleIcon className="h-7 w-7"/>,
+            icon: <BiPlusCircle className="h-7 w-7"/>,
             text: "Создать плейлист",
             setActive: () => {
                 setActiveItem('Создать плейлист');
@@ -64,7 +65,7 @@ function Menu({showPopup}) {
         },
         {
             href: "/library",
-            icon: <HeartIcon className="h-7 w-7"/>,
+            icon: <BiHeart className="h-7 w-7"/>,
             text: "Любимая музыка",
             setActive: () => {
                 setActiveItem('Любимая музыка');
@@ -81,14 +82,14 @@ function Menu({showPopup}) {
     return (
         <nav>
             {menu.map(({href, className, icon, text, action, setActive}) => (
-                <MeniItem href={href}
-                          className={`${activeItem === text ? activeMenuItem : menuItem} ${className}`}
+                <MenuItem href={href}
+                          className={`flex items-center mx-2 px-4 py-2 rounded ${activeItem === text ? activeMenuItem : menuItem} ${className}`}
                           icon={icon}
                           key={text}
                           setActive={setActive}
                           onClick={action}>
                     {text}
-                </MeniItem>
+                </MenuItem>
             ))}
         </nav>
     );

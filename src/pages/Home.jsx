@@ -1,13 +1,11 @@
 import * as React from 'react';
-import {useRef} from "react";
-import useAverageBackgroundColor from "../hooks/useAverageBackgroundColor";
 import image from "../components/Main/image.png"
 import donut from "../components/Main/donut.png"
 import galaxy from "../components/Main/galaxy.jpg"
 import pika from "../components/Main/pika.jpg"
 import poni from "../components/Main/poni.jpg"
 import piro from "../components/Main/piro.jpg"
-import Section from "../components/Main/Section";
+import Section from "../components/Section";
 
 
 const recommendations = {
@@ -80,7 +78,7 @@ const recommendations = {
     ]
 };
 
-//import TrackProgress from "./components/TrackProgress/TrackProgress";
+//import TrackProgress.jsx from "./components/TrackProgress.jsx/TrackProgress.jsx";
 
 function Home({showPopup, showNotify, modal, setColor, toggleScrolling}) {
 

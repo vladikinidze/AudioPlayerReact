@@ -1,6 +1,6 @@
-import {XMarkIcon} from "@heroicons/react/24/outline";
 import {useEffect, useRef} from "react";
 import useEvent from "../../hooks/useEvent";
+import {GrClose} from "react-icons/gr";
 
 
 function Modal({onClose: closeHandle, children: text}) {
@@ -38,7 +38,7 @@ function Modal({onClose: closeHandle, children: text}) {
                 ref={contentRef}>
                 <button className="absolute right-0 p-3 text-neutral-500 hover:text-neutral-200"
                         onClick={close}>
-                    <XMarkIcon className="h-8 w-8"/>
+                    <GrClose className="h-8 w-8"/>
                 </button>
                 <h1 className="text-3xl pt-5 pb-3 px-8 font-bold leading-relaxed border-b border-neutral-600">
                     Заголовок

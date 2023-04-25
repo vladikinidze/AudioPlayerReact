@@ -1,4 +1,3 @@
-import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "../pages/Home";
 import Search from "../pages/Search";
@@ -26,8 +25,6 @@ function AppRouter({showPopup, showNotify, modal, setColor, toggleScrolling}) {
                                     setColor={setColor}
                                     modal={modal}
                                     toggleScrolling={toggleScrolling}/>}/>
-            {/*<Route path='/posts' element={<Posts />} />*/}
-            {/*<Route path="/error" element={<Error />} />*/}
             <Route path="/*" element={<Navigate to="/" replace/>}/>
         </Routes>
     );
