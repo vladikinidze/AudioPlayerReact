@@ -7,7 +7,6 @@ import poni from "../components/Main/poni.jpg"
 import piro from "../components/Main/piro.jpg"
 import Section from "../components/Section";
 
-
 const recommendations = {
     title: "Рекомендации",
     description: "",
@@ -77,9 +76,6 @@ const recommendations = {
         },
     ]
 };
-
-//import TrackProgress.jsx from "./components/TrackProgress.jsx/TrackProgress.jsx";
-
 function Home({showPopup, showNotify, modal, setColor, toggleScrolling}) {
 
 

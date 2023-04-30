@@ -1,22 +1,15 @@
-import {useEffect, useState} from 'react';
-import useEvent from "./useEvent";
+import {useState} from 'react';
 
-function UseRange(ref) {
-    console.log(ref)
-    const [range, setRange] = useState(0);
-    // useEvent('input', setValue, true, ref);
-
-    function setValue(value) {
-        if (value === range) {
-            return;
-        }
-        setRange(value);
-        console.log(range)
+function UseRange({initValue}, ref) {
+    const [value, setValue] = useState(initValue);
+    function onChange(value, callback) {
+        setValue(value);
+        callback(value);
     }
 
     return {
-        range,
-        setValue
+        value,
+        onChange
     };
 }
 

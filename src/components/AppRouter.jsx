@@ -25,6 +25,12 @@ function AppRouter({showPopup, showNotify, modal, setColor, toggleScrolling}) {
                                     setColor={setColor}
                                     modal={modal}
                                     toggleScrolling={toggleScrolling}/>}/>
+            <Route path='/:artist'
+                   element={<Playlist showPopup={showPopup}
+                                      showNotify={showNotify}
+                                      setColor={setColor}
+                                      modal={modal}
+                                      toggleScrolling={toggleScrolling}/>}/>
             <Route path="/*" element={<Navigate to="/" replace/>}/>
         </Routes>
     );

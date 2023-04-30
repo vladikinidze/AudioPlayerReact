@@ -6,16 +6,18 @@ function UseStyledToggle(ref) {
 
     function open(removeClassName = '', addClassName = '') {
         setIsOpen(true);
-        ref.current.classList.remove(removeClassName);
-        ref.current.classList.add(addClassName);
-
+        if (addClassName && removeClassName) {
+            ref.current.classList.remove(removeClassName);
+            ref.current.classList.add(addClassName);
+        }
     }
 
     function close(addClassName = '', removeClassName = '') {
         setIsOpen(false);
-        ref.current.classList.remove(removeClassName);
-        ref.current.classList.add(addClassName);
-
+        if (addClassName && removeClassName) {
+            ref.current.classList.remove(removeClassName);
+            ref.current.classList.add(addClassName);
+        }
     }
 
     return {

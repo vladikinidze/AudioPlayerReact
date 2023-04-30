@@ -1,51 +1,72 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import useRange from "../../hooks/useRange";
 import {FaBars} from "react-icons/fa";
-import {ImVolumeHigh, ImVolumeLow, ImVolumeMedium, ImVolumeMute2} from "react-icons/im";
-import {PAUSE, PLAY, SET_CURRENT_TIME, SET_DURATION} from "../../actions/playerActions";
 import CurrentTrackInfo from "./CurrentTrackInfo";
 import Buttons from "./Buttons";
-import Range from "../UI/Range/Range"
+import TrackProgress from "./TrackProgress";
+import Volume from "./Volume";
 
+import piro from '../../../src/components/Main/piro.jpg'
 import pirotrack from "../../Pyrokinesis.mp3"
-import piro from "../Main/piro.jpg"
 
-const track = {
-    title: "Альма-матер",
-    artist: "pyrokonesis",
-    trackUrl: pirotrack,
-    imageUrl: piro,
-    duration: "148"
-}
+import {
+    PAUSE,
+    PLAY,
+    SET_ARTIST,
+    SET_CURRENT_IMAGE,
+    SET_CURRENT_TIME,
+    SET_DURATION,
+    SET_TITLE,
+    SET_VOLUME
+} from "../../actions/playerActions";
 
 let audio;
 
 function Player() {
+    const trackProgressRef = useRef();
+    const trackProgress = useRange(trackProgressRef, 0);
     const dispatch = useDispatch();
-    const player = useSelector(state => state.player)
-    const buttonsClasses = "w-4.75 h-4.75 fill-[#b3b3b3] hover:fill-[#1cb955]";
-
-    const [volume, setVolume] = useState(100);
-
-    function setTrackProgress(number) {
-        audio.currentTime = number;
-    }
+    const player = useSelector(state => state.player);
+    const buttonsClasses = "w-4.75 h-4.75 ml-3 fill-[#b3b3b3] hover:fill-[#1cb955]";
 
     useEffect(() => {
         if (!audio) {
-            audio = new Audio(track.trackUrl);
+            audio = new Audio(pirotrack);
+            dispatch({type: SET_CURRENT_IMAGE, payload: piro})
+            dispatch({type: SET_ARTIST, payload: "pirokinesis"})
+            dispatch({type: SET_TITLE, payload: "АЛЬМА-МАТЕР"})
         }
 
-        function onLoadedMetadataHandle(e) {
+        function onLoadedMetadataHandle() {
             dispatch({type: SET_DURATION, payload: audio.duration})
         }
 
-        audio.addEventListener('loadedmetadata', onLoadedMetadataHandle);
+        function onTimeUpdateHandle() {
+            setCurrentTime(audio.currentTime);
+        }
 
+        audio.addEventListener('loadedmetadata', onLoadedMetadataHandle);
+        audio.addEventListener('timeupdate', onTimeUpdateHandle);
         return () => {
             audio.removeEventListener('loadedmetadata', onLoadedMetadataHandle);
+            audio.removeEventListener('timeupdate', onTimeUpdateHandle);
         }
     })
+
+    function setVolume(volume) {
+        dispatch({type: SET_VOLUME, payload: volume})
+        audio.volume = volume / 100;
+    }
+
+    function setCurrentTime(time) {
+        if (audio && audio.currentTime) {
+            if (Math.abs(time - audio.currentTime) > 1) {
+                audio.currentTime = Number(time);
+            }
+        }
+        dispatch({type: SET_CURRENT_TIME, payload: Number(time)})
+    }
 
     function play() {
         if (player.pause) {
@@ -58,29 +79,25 @@ function Player() {
     }
 
     return (
-        <div className="bg-[#181818] border-t border-solid border-[#484848] z-40 text-white pb-3 pt-2.5 px-6 flex justify-between items-center flex-wrap gap-x-6 gap-y-2">
-            <CurrentTrackInfo/>
+        <div
+            className="bg-[#181818] border-t border-solid border-[#484848] z-40 text-white pb-3 pt-2.5 px-6 flex justify-between items-center flex-wrap gap-x-6 gap-y-2">
+            <CurrentTrackInfo image={player.image}
+                              title={player.title}
+                              artist={player.artist}/>
             <div className={`flex flex-col grow max-w-screen-lg`}>
-                <Buttons play={play} isPlaying={player.pause}/>
-                <Range/>
+                <Buttons play={play}
+                         isPlaying={player.pause}/>
+                <TrackProgress ref={trackProgressRef}
+                               audio={audio}
+                               setValue={setCurrentTime}
+                               trackProgress={trackProgress}/>
             </div>
             <div className="flex flex-row items-center w-[250px] p-3">
-                <FaBars className={`${buttonsClasses} mr-2`}/>
-                <div className="w-[20px] ml-4 mr-2">
-                    {volume > 70
-                        ? <ImVolumeHigh className={`${buttonsClasses}`}/>
-                        : volume > 40
-                            ? <ImVolumeMedium className={`${buttonsClasses}`}/>
-                            : volume > 0
-                                ? <ImVolumeLow className={`${buttonsClasses}`}/>
-                                : <ImVolumeMute2 className={`${buttonsClasses}`}/>
-                    }
-                </div>
-                <Range className="grow"/>
+                <FaBars className={`${buttonsClasses}`}/>
+                <Volume setVolume={setVolume}/>
             </div>
         </div>
     )
-        ;
 }
 
 export default Player;

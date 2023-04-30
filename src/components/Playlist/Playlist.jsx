@@ -47,13 +47,10 @@ function Playlist({
             },
         ];
     }
-
     const imageRef = useRef();
     const menuItems = generateMenuItems();
     const menu = useContextMenu(menuItems);
-
     const navigate = useNavigate();
-
     const bgClass = menu.isOpen
         ? "bg-[#272727]"
         : "bg-[#181818] hover:bg-[#272727]";
@@ -63,11 +60,11 @@ function Playlist({
     });
 
     function clickHandler(event) {
+        event.preventDefault();
+        event.stopPropagation();
         if (menu.isOpen) {
             return;
         }
-        event.preventDefault();
-        event.stopPropagation();
         navigate(`/${id}`);
     }
 
