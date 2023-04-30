@@ -1,13 +1,25 @@
 import classes from "./Range.module.css"
-import {useRef, useState} from "react";
+import {forwardRef, useEffect, useRef} from "react";
 
-function Range({className}) {
+function Range({className, value: range, onChange, setValue, initValue, max = 100, min = 0}, ref) {
     const progressRef = useRef();
-    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        if (initValue) {
+            setStyleProgress(initValue);
+        }
+    }, [initValue])
+
+    useEffect(() => {
+        setStyleProgress(range);
+    }, [range])
+
+    function setStyleProgress(value) {
+        progressRef.current.style.width = 100 * value / max + '%';
+    }
 
     function changeValue(value) {
-        setProgress(value);
-        progressRef.current.style.width = value + '%';
+        onChange(value, setValue);
     }
 
     return (
@@ -16,18 +28,16 @@ function Range({className}) {
                 <span ref={progressRef}
                       className={classes.fill}></span>
             </span>
-            <input id="slider"
-                   onInput={(event) => changeValue(event.target.value)}
+            <input ref={ref}
                    className={classes.slider}
                    type="range"
-                   onDoubleClick={() => console.log()}
                    onChange={(event) => changeValue(event.target.value)}
-                   min={0}
-                   max={100}
-                   value={progress}
+                   min={min}
+                   max={max}
+                   value={range ?? initValue}
                    step="1"/>
         </div>
     );
 }
 
-export default Range;
+export default forwardRef(Range);

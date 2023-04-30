@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import image from "../components/Main/image.png";
+import image from "../components/Main/pika.jpg";
 import piro from "../components/Main/piro.jpg";
 import Image from "../components/UI/Image";
 import {useEffect, useRef} from "react";

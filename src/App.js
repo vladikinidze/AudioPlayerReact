@@ -26,7 +26,7 @@ function App() {
     const {set: setColor} = useAverageBackgroundColor(gradientRef);
     useEvent('wheel', scrollHandle, true, () => contentWrapperRef.current);
     const sidebarToggle = useStyledToggle(sidebarRef);
-    useScrollbar(scrollWrapperRef)
+    useScrollbar(scrollWrapperRef);
 
     function scrollHandle(event) {
         if (isScrollingEnabled) return;
@@ -47,11 +47,13 @@ function App() {
     }
 
     return (
-        <div className="flex flex-col bg-[#121212] overflow-y-hidden">
-            <div className="flex h-screen flex-row flex-grow overflow-y-hidden">
-                <BrowserRouter>
-                    <Sidebar ref={sidebarRef} showPopup={showPopup} isOpen={sidebarToggle.isOpen}
-                             close={sidebarToggle.open}/>
+        <BrowserRouter>
+            <div className="flex flex-col bg-[#121212] overflow-y-hidden">
+                <div className="flex h-screen flex-row flex-grow overflow-y-hidden">
+                    <Sidebar ref={sidebarRef}
+                             showPopup={showPopup}
+                             isOpen={sidebarToggle.isOpen}
+                             close={sidebarToggle.close}/>
                     <div
                         className={`fixed inset-0 bg-black opacity-50 pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
                         onClick={() => sidebarToggle.close('translate-x-0', '-translate-x-full')}></div>
@@ -59,9 +61,9 @@ function App() {
                         <Header openSidebar={sidebarToggle.open}/>
                         <main className="text-white relative overflow-y-hidden grow h-screen" ref={scrollWrapperRef}>
                             <div
-                                 className="absolute w-full h-full"></div>
+                                className="absolute w-full h-full"></div>
                             <div ref={gradientRef}
-                                className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
+                                 className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
                                 <AppRouter showPopup={showPopup}
                                            showNotify={showNotify}
                                            setColor={setColor}
@@ -70,13 +72,13 @@ function App() {
                             </div>
                         </main>
                     </div>
-                </BrowserRouter>
+                </div>
+                <Player/>
+                <Popup ref={popupRef}/>
+                {modal.isOpen && <Modal onClose={modal.close}/>}
+                <Notify ref={notifyRef}/>
             </div>
-            <Player/>
-            <Popup ref={popupRef}/>
-            {modal.isOpen && <Modal onClose={modal.close}/>}
-            <Notify ref={notifyRef}/>
-        </div>
+        </BrowserRouter>
     );
 }
 

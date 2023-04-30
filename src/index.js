@@ -6,17 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {rootReducer} from "./store/reducers/rootReducer";
 import {createStore} from "redux";
-import { composeWithDevTools } from '@redux-devtools/extension';
+import {composeWithDevTools} from '@redux-devtools/extension';
 
-const store= createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-        <App />
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>
 );
 
 reportWebVitals();
