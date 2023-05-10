@@ -4,7 +4,7 @@ function Button({children: text, primary, className, onClick}) {
         : "text-white text-xs";
 
     return (
-        <button className={`font-semibold leading-5 tracking-widest uppercase py-[9px] px-[17px] sm:px-[38px] rounded-full hover:scale-105 ${classes} ${className}`}
+        <button className={`font-semibold leading-5 tracking-widest uppercase py-[9px] px-[17px] sm:px-[23px] rounded-full hover:scale-105 ${classes} ${className}`}
                 onClick={onClick}>
             {text}
         </button>

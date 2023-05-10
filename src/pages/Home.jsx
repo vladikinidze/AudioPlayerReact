@@ -19,6 +19,7 @@ function Home({showPopup, showNotify, modal, averageBackgroundColor, toggleScrol
         <>
             {lastAddedPlaylists &&
                 <Section title="Недавно добавленные"
+                         isSearch={true}
                          description="Коллекция недавно добавленных плейлистов"
                          playlists={lastAddedPlaylists}
                          toggleScrolling={toggleScrolling}
