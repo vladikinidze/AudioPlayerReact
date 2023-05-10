@@ -10,14 +10,15 @@ import {useNavigate} from "react-router-dom";
 
 function Playlist({
                       id,
+                      user,
                       className,
-                      imageUrl,
+                      image,
                       title,
                       description,
                       showNotify,
                       showPopup,
                       openModal,
-                      setColor,
+                      averageBackgroundColor,
                       toggleScrolling
                   }) {
     function generateMenuItems() {
@@ -59,32 +60,36 @@ function Playlist({
         toggleScrolling(!menu.isOpen);
     });
 
-    function clickHandler(event) {
+    function onClicked(event) {
         event.preventDefault();
         event.stopPropagation();
         if (menu.isOpen) {
             return;
         }
-        navigate(`/${id}`);
+        navigate(`/playlists/${id}`);
+    }
+
+    function setAverageColorWithRef() {
+        averageBackgroundColor.set(imageRef);
     }
 
     function setAverageColor() {
-        setColor(imageRef);
+        averageBackgroundColor.setColor("#121212");
     }
 
     return (
         <div className={`relative p-5 rounded-md duration-200 group ${bgClass} ${className}`}
              onContextMenu={menu.open}
-             onMouseOver={setAverageColor}
-             onClick={clickHandler}>
+             onMouseOver={setAverageColorWithRef}
+             onMouseLeave={setAverageColor}
+             onClick={onClicked}>
             <div className="relative m-auto">
                 <Image ref={imageRef}
-                       url={imageUrl}
-                       setColor={setColor}/>
+                       url={`https://localhost:7182/api/files/${image}`}/>
                 <PlayButton/>
             </div>
             <Title title={title}/>
-            <Description description={description}/>
+            <Description data={user}/>
             {menu.isOpen && (
                 <ContextMenu ref={menu.ref}
                              menuItems={menu.items}

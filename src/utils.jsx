@@ -12,3 +12,13 @@ export function getFormatTime(current) {
     const seconds = (current % 60).toFixed(0).toString().padStart(2, '0');
     return minutes + ":" + seconds;
 }
+
+export function getFormatDate(string) {
+    let options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timezone: 'UTC',
+    };
+    return  new Date(string).toLocaleString("ru", options);
+}

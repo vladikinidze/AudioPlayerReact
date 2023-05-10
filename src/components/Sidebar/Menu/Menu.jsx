@@ -9,7 +9,7 @@ import {
 } from "react-icons/bi";
 
 
-function Menu({showPopup}) {
+function Menu({showPopup, modal}) {
 
     const [activeItem, setActiveItem] = useState('Главная');
 

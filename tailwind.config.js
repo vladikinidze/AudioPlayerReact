@@ -26,9 +26,6 @@ module.exports = {
             boxShadow: {
                 '3xl': '0 16px 24px rgba(0, 0, 0, .3), 0 6px 8px rgba(0, 0, 0, .2)',
             },
-            flexGrow: {
-                2: '2'
-            },
             height: {
                 '4.75': '18px',
             },

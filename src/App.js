@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {BrowserRouter} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Player from "./components/Player/Player";
@@ -23,7 +23,7 @@ function App() {
     const sidebarRef = useRef();
     const modal = useModal();
     let isScrollingEnabled = true;
-    const {set: setColor} = useAverageBackgroundColor(gradientRef);
+    const averageBackgroundColor = useAverageBackgroundColor(gradientRef);
     useEvent('wheel', scrollHandle, true, () => contentWrapperRef.current);
     const sidebarToggle = useStyledToggle(sidebarRef);
     useScrollbar(scrollWrapperRef);
@@ -52,6 +52,7 @@ function App() {
                 <div className="flex h-screen flex-row flex-grow overflow-y-hidden">
                     <Sidebar ref={sidebarRef}
                              showPopup={showPopup}
+                             modal={modal}
                              isOpen={sidebarToggle.isOpen}
                              close={sidebarToggle.close}/>
                     <div
@@ -60,13 +61,12 @@ function App() {
                     <div className="flex flex-col flex-1 overflow-hidden" ref={contentWrapperRef}>
                         <Header openSidebar={sidebarToggle.open}/>
                         <main className="text-white relative overflow-y-hidden grow h-screen" ref={scrollWrapperRef}>
-                            <div
-                                className="absolute w-full h-full"></div>
                             <div ref={gradientRef}
-                                 className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
+                                className="absolute w-full h-full"></div>
+                            <div className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
                                 <AppRouter showPopup={showPopup}
                                            showNotify={showNotify}
-                                           setColor={setColor}
+                                           averageBackgroundColor={averageBackgroundColor}
                                            modal={modal}
                                            toggleScrolling={toggleScrolling}/>
                             </div>
@@ -75,7 +75,7 @@ function App() {
                 </div>
                 <Player/>
                 <Popup ref={popupRef}/>
-                {modal.isOpen && <Modal onClose={modal.close}/>}
+               {modal.isOpen && <Modal onClose={modal.close}/>}
                 <Notify ref={notifyRef}/>
             </div>
         </BrowserRouter>

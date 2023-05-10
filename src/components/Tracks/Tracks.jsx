@@ -6,6 +6,8 @@ import poni from "../Main/poni.jpg";
 import piro from "../Main/piro.jpg";
 import Track from "./Track";
 import {BsClock} from "react-icons/bs";
+import {useEffect, useState} from "react";
+import TrackServise from "../../API/TrackServise";
 
 const playlist = [
     {
@@ -81,7 +83,19 @@ const playlist = [
     },
 ]
 
-function Tracks() {
+function Tracks({playlistId}) {
+
+    const [tracks, setTracks] = useState();
+
+    async function fetchTracks() {
+        const tracks = await TrackServise.getByPlaylistId(playlistId);
+        setTracks(tracks);
+    }
+
+    useEffect(() => {
+        fetchTracks();
+    }, [])
+
     return (
         <div>
             <div className="flex flex-row items-center justify-between border-b-2 py-2">
@@ -89,16 +103,17 @@ function Tracks() {
                 <p className="mx-6 uppercase grow tracking-wide">Title</p>
                 <BsClock className="w-5 h-5 mx-8"/>
             </div>
-            {playlist.map(({id, title, author, imageUrl, duration}, index) => (
-                    <Track key={id}
-                           index={index + 1}
-                           id={id}
-                           title={title}
-                           author={author}
-                           duration={duration}
-                           imageUrl={imageUrl}/>
-                )
-            )}
+            {tracks
+                ? tracks.map(({id, title, user, image}, index) => (
+                            <Track key={id}
+                                   index={index + 1}
+                                   id={id}
+                                   title={title}
+                                   user={user}/>
+                        )
+                    )
+                : "f"
+            }
         </div>
     );
 }
