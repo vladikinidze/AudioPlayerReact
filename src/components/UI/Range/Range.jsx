@@ -26,7 +26,8 @@ function Range({className, value: range, onChange, setValue, initValue, max = 10
         <div className={`${classes.sliderContainer} ${className}`}>
             <span className={classes.bar}>
                 <span ref={progressRef}
-                      className={classes.fill}></span>
+                      className={classes.fill}>
+                </span>
             </span>
             <input ref={ref}
                    className={classes.slider}

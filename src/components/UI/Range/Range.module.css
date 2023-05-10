@@ -1,67 +1,30 @@
-
 .sliderContainer {
-    position: relative;
+    @apply relative;
 }
-
 .sliderContainer .bar {
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    top: 0.535em;
-    width: 100%;
-    height: 5px;
-    border-radius: 10px;
-    background-color: #272727;
-    overflow: hidden;
+    @apply absolute z-[1] w-full h-[5px] bg-[#272727] overflow-hidden rounded-[10px] left-0 top-[0.535em];
 }
-
 .sliderContainer .bar .fill {
-    display: block;
-    width: 0%;
-    height: 100%;
-    background-color: #989898;
+    @apply block w-[0%] h-full bg-[#989898];
 }
-
 .sliderContainer .slider {
-    position: relative;
-    z-index: 2;
+    @apply relative z-[2] w-full h-2.5 bg-transparent rounded-[10px];
     -webkit-appearance: none;
-    width: 100%;
-    height: 10px;
-    border-radius: 10px;
     outline: none;
-    background-color: transparent;
 }
-
-.sliderContainer .slider::-webkit-slider-thumb{
+.sliderContainer .slider::-webkit-slider-thumb {
+    @apply invisible w-2.5 h-2.5 bg-[#1cb955] cursor-pointer transition-[0.2s] duration-[ease-in-out] rounded-[50%];
     -webkit-appearance: none;
-    visibility: hidden;
-    width: 10px;
-    height: 10px;
-    background-color: #1cb955;
-    border-radius: 50%;
-    cursor: pointer;
     outline: none;
-    transition: .2s ease-in-out;
 }
-
-.sliderContainer:hover .slider::-webkit-slider-thumb{
-    visibility: visible;
+.sliderContainer:hover .slider::-webkit-slider-thumb {
+    @apply visible;
 }
-
-.sliderContainer .slider::-moz-range-thumb{
+.sliderContainer .slider::-moz-range-thumb {
+    @apply invisible w-2.5 h-2.5 bg-[#1cb955] cursor-pointer transition-[0.2s] duration-[ease-in-out] rounded-[50%] border-[none];
     -webkit-appearance: none;
-    visibility: hidden;
-    width: 10px;
-    height: 10px;
-    background-color: #1cb955;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
     outline: none;
-    transition: .2s ease-in-out;
 }
-
-.sliderContainer:hover .slider::-moz-range-thumb{
-    visibility: visible;
+.sliderContainer:hover .slider::-moz-range-thumb {
+    @apply visible;
 }

@@ -1,9 +1,8 @@
 import {useEffect, useRef} from "react";
 import useEvent from "../../hooks/useEvent";
-import {GrClose} from "react-icons/gr";
+import {HiXMark} from "react-icons/hi2";
 
-
-function Modal({onClose: closeHandle, children: text}) {
+function Modal({onClose: closeHandle, children, title}) {
     const ref = useRef();
     const contentRef = useRef();
     useEffect(() => {
@@ -38,13 +37,13 @@ function Modal({onClose: closeHandle, children: text}) {
                 ref={contentRef}>
                 <button className="absolute right-0 p-3 text-neutral-500 hover:text-neutral-200"
                         onClick={close}>
-                    <GrClose className="h-8 w-8"/>
+                    <HiXMark className="h-8 w-8 fill-[#A9A9A9] hover:fill-[#808080]"/>
                 </button>
-                <h1 className="text-3xl pt-5 pb-3 px-8 font-bold leading-relaxed border-b border-neutral-600">
-                    Заголовок
+                <h1 className="text-2xl min-h-[55px] pt-5 pb-3 px-8 font-bold leading-relaxed border-b border-neutral-600">
+                    {title}
                 </h1>
                 <div className="py-6 px-8 overflow-y-auto">
-                    {text}
+                    {children}
                 </div>
             </div>
         </div>
