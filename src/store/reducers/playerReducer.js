@@ -13,7 +13,7 @@ const initialState = {
     currentTime: 0,
     duration: 0,
     volume: 100,
-    pause: true,
+    pause: false,
     mode: 1
 }
 
@@ -26,7 +26,7 @@ export const playerReducer = (state = initialState, action) => {
         case SET_VOLUME:
             return {...state, volume: action.payload}
         case SET_ACTIVE:
-            return {...state, active: action.payload, currentTime: 0, duration: 0}
+            return {...state, active: action.payload, currentTime: 0}
         case SET_DURATION:
             return {...state, duration: action.payload}
         case SET_CURRENT_TIME:
