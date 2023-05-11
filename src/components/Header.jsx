@@ -1,8 +1,9 @@
-import Button from "./UI/Button";
 import {FaBars} from "react-icons/fa";
+import Button from "./UI/Button";
+import SearchInput from "./UI/SearchInput";
 
 
-function Header({openSidebar}) {
+function Header({openSidebar, searchOnInput}) {
 
     function clickHandler() {
         openSidebar('-translate-x-full', 'translate-x-0')
@@ -16,6 +17,7 @@ function Header({openSidebar}) {
                         onClick={clickHandler}>
                     <FaBars className="h-6 w-6"/>
                 </button>
+                <SearchInput className="hidden sidebarHide:flex" onInput={searchOnInput}/>
                 {/*<a href="/" className="mr-[8px] text-[#969696] p-1 cursor-not-allowed">*/}
                 {/*    <ChevronLeftIcon className="h-6 w-6"/>*/}
                 {/*</a>*/}

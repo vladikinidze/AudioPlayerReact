@@ -1,0 +1,15 @@
+
+.loader {
+    @apply fixed left-1/2 top-1/2 w-[100px] h-[100px] ml-[-50px] mt-[-50px] rounded-full border-dashed border-4 border-[#A9A9A9];
+    animation: rotate 3s infinite linear;
+
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

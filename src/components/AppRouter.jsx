@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import Search from "../pages/Search";
 import Playlist from "../pages/Playlist";
 
-function AppRouter({showPopup, showNotify, modal, averageBackgroundColor, toggleScrolling}) {
+function AppRouter({showPopup, showNotify, modal, searchQuery, averageBackgroundColor, toggleScrolling}) {
     return (
         <Routes>
             <Route path='/'
@@ -15,6 +15,7 @@ function AppRouter({showPopup, showNotify, modal, averageBackgroundColor, toggle
 
             <Route path='/search'
                    element={<Search showPopup={showPopup}
+                                    searchQuery={searchQuery}
                                     showNotify={showNotify}
                                     averageBackgroundColor={averageBackgroundColor}
                                     modal={modal}

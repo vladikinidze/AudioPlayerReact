@@ -33,6 +33,7 @@ function Range({className, value: range, onChange, setValue, initValue, max = 10
                    className={classes.slider}
                    type="range"
                    onChange={(event) => changeValue(event.target.value)}
+                   //onInput={(event) => changeValue(event.target.value)}
                    min={min}
                    max={max}
                    value={range ?? initValue}

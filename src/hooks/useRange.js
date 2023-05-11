@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function UseRange({initValue}, ref) {
+function UseRange({initValue}) {
     const [value, setValue] = useState(initValue);
     function onChange(value, callback) {
         setValue(value);

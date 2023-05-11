@@ -9,7 +9,7 @@ import {
 } from "react-icons/bi";
 
 
-function Menu({showPopup, modal}) {
+function Menu({showPopup, sidebarToggle, modal}) {
 
     const [activeItem, setActiveItem] = useState('Главная');
 
@@ -22,7 +22,10 @@ function Menu({showPopup, modal}) {
             text: "Главная",
             setActive: () => {
                 setActiveItem('Главная');
-            }
+            },
+            // close: (event) => {
+            //     sidebarToggle.close('translate-x-0', '-translate-x-full')
+            // }
         },
         {
             href: "/search",
@@ -30,7 +33,10 @@ function Menu({showPopup, modal}) {
             text: "Поиск",
             setActive: () => {
                 setActiveItem('Поиск');
-            }
+            },
+            // close: (event) => {
+            //     sidebarToggle.close('translate-x-0', '-translate-x-full')
+            // }
         },
         {
             href: "/library",
@@ -81,11 +87,12 @@ function Menu({showPopup, modal}) {
     ];
     return (
         <nav>
-            {menu.map(({href, className, icon, text, action, setActive}) => (
+            {menu.map(({href, className, icon, text, close, action, setActive}) => (
                 <MenuItem href={href}
                           className={`flex items-center mx-2 px-4 py-2 rounded ${activeItem === text ? activeMenuItem : menuItem} ${className}`}
                           icon={icon}
                           key={text}
+                          onClose={close}
                           setActive={setActive}
                           onClick={action}>
                     {text}

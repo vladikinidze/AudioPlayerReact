@@ -13,6 +13,7 @@ import useAverageBackgroundColor from "./hooks/useAverageBackgroundColor";
 import useStyledToggle from "./hooks/useStyledToggle";
 import useScrollbar from './hooks/useScrollbar'
 import 'overlayscrollbars/overlayscrollbars.css';
+import useSearch from "./hooks/useSearch";
 
 function App() {
     const scrollWrapperRef = useRef();
@@ -27,7 +28,7 @@ function App() {
     useEvent('wheel', scrollHandle, true, () => contentWrapperRef.current);
     const sidebarToggle = useStyledToggle(sidebarRef);
     useScrollbar(scrollWrapperRef);
-
+    const search = useSearch();
     function scrollHandle(event) {
         if (isScrollingEnabled) return;
         event.preventDefault();
@@ -53,20 +54,23 @@ function App() {
                     <Sidebar ref={sidebarRef}
                              showPopup={showPopup}
                              modal={modal}
+                             sidebarToggle={sidebarToggle}
                              isOpen={sidebarToggle.isOpen}
                              close={sidebarToggle.close}/>
                     <div
                         className={`fixed inset-0 bg-black opacity-50 pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
                         onClick={() => sidebarToggle.close('translate-x-0', '-translate-x-full')}></div>
                     <div className="flex flex-col flex-1 overflow-hidden" ref={contentWrapperRef}>
-                        <Header openSidebar={sidebarToggle.open}/>
+                        <Header openSidebar={sidebarToggle.open} searchOnInput={search.onSearching}/>
                         <main className="text-white relative overflow-y-hidden grow h-screen" ref={scrollWrapperRef}>
                             <div ref={gradientRef}
-                                className="absolute w-full h-full"></div>
-                            <div className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
+                                 className="absolute w-full h-full"></div>
+                            <div
+                                className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
                                 <AppRouter showPopup={showPopup}
                                            showNotify={showNotify}
                                            averageBackgroundColor={averageBackgroundColor}
+                                           searchQuery={search.query}
                                            modal={modal}
                                            toggleScrolling={toggleScrolling}/>
                             </div>
@@ -75,7 +79,7 @@ function App() {
                 </div>
                 <Player/>
                 <Popup ref={popupRef}/>
-               {modal.isOpen && <Modal onClose={modal.close}/>}
+                {modal.isOpen && <Modal onClose={modal.close}/>}
                 <Notify ref={notifyRef}/>
             </div>
         </BrowserRouter>

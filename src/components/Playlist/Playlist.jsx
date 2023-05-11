@@ -86,7 +86,7 @@ function Playlist({
             <div className="relative m-auto">
                 <Image ref={imageRef}
                        url={`https://localhost:7182/api/files/${image}`}/>
-                <PlayButton/>
+                {/*<PlayButton playlistsId={id}/>*/}
             </div>
             <Title title={title}/>
             <Description data={user}/>
