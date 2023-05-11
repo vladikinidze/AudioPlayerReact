@@ -8,7 +8,7 @@ import TrackProgress from "./TrackProgress";
 import Volume from "./Volume";
 import {
     PAUSE,
-    PLAY,
+    PLAY, SET_ACTIVE,
     SET_CURRENT_TIME,
     SET_DURATION,
     SET_VOLUME
@@ -17,6 +17,7 @@ import useFetching from "../../hooks/useFetching";
 import useAwayClick from "../../hooks/useAwayClick";
 import PlaylistService from "../../API/PlaylistService";
 import UserService from "../../API/UserService";
+import {getObjectIndex} from "../../utils";
 
 let audio;
 let playlist;
@@ -29,7 +30,6 @@ function Player() {
     const player = useSelector(state => state.player);
     const track = useSelector(state => state.track);
     const buttonsClasses = "w-4.75 h-4.75 ml-3 fill-[#b3b3b3] hover:fill-[#1cb955]";
-
     const [image, setImage] = useState();
     const [user, setUser] = useState();
 
@@ -43,7 +43,7 @@ function Player() {
         if (player.active) {
             audio.preload = "metadata";
             audio.crossOrigin = "anonymous";
-            audio.src = `https://localhost:7182/api/files/${player.active.audio}`
+            audio.src = `https://localhost:7182/api/files/${player.active.audio}`;
             audio.play();
             fetchPlaylist();
             audio.onloadeddata = () => {
@@ -52,7 +52,19 @@ function Player() {
             audio.ontimeupdate = () => {
                 setCurrentTime(audio.currentTime);
             }
+            audio.onended = () => {
+                onEnded();
+            }
+        }
+    }
 
+    function onEnded() {
+        const index = getObjectIndex(player.active, track.queue);
+        if (index === Object.values(track.queue).length - 1) {
+            dispatch({type: SET_ACTIVE, payload: track.queue[0]})
+
+        } else {
+            dispatch({type: SET_ACTIVE, payload: track.queue[index + 1]})
         }
     }
 

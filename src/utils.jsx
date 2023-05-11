@@ -30,3 +30,7 @@ export function isEquals(obj1, obj2) {
 export function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
 }
+
+export function getObjectIndex(object, objects) {
+    return Object.values(objects).findIndex((elem) => elem.id === object.id)
+}
