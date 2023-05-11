@@ -22,3 +22,11 @@ export function getFormatDate(string) {
     };
     return  new Date(string).toLocaleString("ru", options);
 }
+
+export function isEquals(obj1, obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
+export function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}

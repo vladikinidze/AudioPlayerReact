@@ -1,22 +1,20 @@
 import {
     PAUSE,
     PLAY,
-    SET_ACTIVE, SET_ARTIST,
-    SET_CURRENT_IMAGE,
+    SET_ACTIVE,
     SET_CURRENT_TIME,
-    SET_DURATION, SET_TITLE,
-    SET_VOLUME
+    SET_DURATION,
+    SET_VOLUME,
+    SET_MODE
 } from "../../actions/playerActions";
 
 const initialState = {
     active: null,
-    artist: "",
-    title: "",
     currentTime: 0,
     duration: 0,
     volume: 100,
     pause: true,
-    image: null
+    mode: 1
 }
 
 export const playerReducer = (state = initialState, action) => {
@@ -25,10 +23,6 @@ export const playerReducer = (state = initialState, action) => {
             return {...state, pause: false}
         case PAUSE:
             return {...state, pause: true}
-        case SET_ARTIST:
-            return {...state, artist: action.payload}
-        case SET_TITLE:
-            return {...state, title: action.payload}
         case SET_VOLUME:
             return {...state, volume: action.payload}
         case SET_ACTIVE:
@@ -37,8 +31,8 @@ export const playerReducer = (state = initialState, action) => {
             return {...state, duration: action.payload}
         case SET_CURRENT_TIME:
             return {...state, currentTime: action.payload}
-        case SET_CURRENT_IMAGE:
-            return {...state, image: action.payload}
+        case SET_MODE:
+            return {...state, mode: action.payload}
         default:
             return state;
     }

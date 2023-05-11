@@ -12,19 +12,21 @@ function Search({showPopup, showNotify, modal, setColor, searchQuery, toggleScro
     });
 
     useEffect(() => {
+        averageBackgroundColor.setColor("#121212");
         fetchPlaylists();
     }, [])
 
     const searchedPlaylists = useMemo(() => {
         return playlists?.filter(playlist =>
-            playlist.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    }, [playlists])
+            playlist.title.toLowerCase().startsWith(searchQuery.toLowerCase()))
+    }, [playlists, searchQuery])
 
     return (
         <>
             {isLoading
                 ? <Loader />
-                :  <Section playlists={searchedPlaylists}
+                :  <Section title="Плейлисты"
+                            playlists={searchedPlaylists}
                             isSearch={true}
                             toggleScrolling={toggleScrolling}
                             showNotify={showNotify}

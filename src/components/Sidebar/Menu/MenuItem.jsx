@@ -1,11 +1,14 @@
 import {useRef} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-function MenuItem({href, className, icon, onClick, setActive, children: text}) {
+function MenuItem({href, className, icon, onClick, setActive, onClose, children: text}) {
     const textRef = useRef();
-
+    const navigate = useNavigate();
     function actionHandle(event) {
         setActive();
+        if (onClose) {
+            onClose();
+        }
         if (!onClick) {
             return;
         }

@@ -1,19 +1,27 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import PlaylistService from "../API/PlaylistService";
 import Section from "../components/Section";
+import useFetching from "../hooks/useFetching";
 
 function Home({showPopup, showNotify, modal, averageBackgroundColor, toggleScrolling}) {
     const [lastAddedPlaylists, setLastAddedPlaylists] = useState();
-
-    async function fetchPlaylists() {
+    const [fetchPlaylists, isLoading, error] = useFetching( async () => {
         const playlists = await PlaylistService.getAll();
         setLastAddedPlaylists(playlists);
-    }
+    });
+    // async function fetchPlaylists() {
+    //     const playlists = await PlaylistService.getAll();
+    //     setLastAddedPlaylists(playlists);
+    // }
 
     useEffect(() => {
         averageBackgroundColor.setColor("#121212");
         fetchPlaylists();
     }, [])
+
+    const playlists = useMemo(() => {
+        return lastAddedPlaylists;
+    }, [lastAddedPlaylists])
 
     return (
         <>
@@ -21,7 +29,7 @@ function Home({showPopup, showNotify, modal, averageBackgroundColor, toggleScrol
                 <Section title="Недавно добавленные"
                          isSearch={true}
                          description="Коллекция недавно добавленных плейлистов"
-                         playlists={lastAddedPlaylists}
+                         playlists={playlists}
                          toggleScrolling={toggleScrolling}
                          showNotify={showNotify}
                          showPopup={showPopup}

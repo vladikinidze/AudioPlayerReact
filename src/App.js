@@ -29,7 +29,6 @@ function App() {
     const sidebarToggle = useStyledToggle(sidebarRef);
     useScrollbar(scrollWrapperRef);
     const search = useSearch();
-
     function scrollHandle(event) {
         if (isScrollingEnabled) return;
         event.preventDefault();
@@ -55,6 +54,7 @@ function App() {
                     <Sidebar ref={sidebarRef}
                              showPopup={showPopup}
                              modal={modal}
+                             sidebarToggle={sidebarToggle}
                              isOpen={sidebarToggle.isOpen}
                              close={sidebarToggle.close}/>
                     <div

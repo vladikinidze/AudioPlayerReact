@@ -1,10 +1,11 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BsSearch} from "react-icons/bs";
 import {RxCross1} from "react-icons/rx";
 
 function SearchInput({className, onInput}) {
     const inputRef = useRef();
     const [isInput, setIsInput] = useState(false);
+
     function onDivClicked() {
         inputRef.current?.focus();
     }
@@ -31,7 +32,7 @@ function SearchInput({className, onInput}) {
                    placeholder="Плейлист или трек"
                    type="text"
                    className="grow outline-none"/>
-            {isInput &&
+            {isInput && inputRef.current?.value !== "" &&
                 <button onClick={onButtonClicked}>
                     <RxCross1 className="h-4 w-4 ml-2 fill-[#A8A8A8] hover:fill-black"/>
                 </button>}

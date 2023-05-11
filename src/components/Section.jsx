@@ -52,7 +52,7 @@ function Section({
                 {playlists?.map((playlist, index) => (
                     <Playlist key={playlist.id}
                               {...playlist}
-                              className={styles[index % 10]}
+                              className={!isSearch ? styles[index % 10] : ""}
                               toggleScrolling={toggleScrolling}
                               showNotify={showNotify}
                               showPopup={showPopup}
