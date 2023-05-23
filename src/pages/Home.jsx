@@ -9,10 +9,6 @@ function Home({showPopup, showNotify, modal, averageBackgroundColor, toggleScrol
         const playlists = await PlaylistService.getAll();
         setLastAddedPlaylists(playlists);
     });
-    // async function fetchPlaylists() {
-    //     const playlists = await PlaylistService.getAll();
-    //     setLastAddedPlaylists(playlists);
-    // }
 
     useEffect(() => {
         averageBackgroundColor.setColor("#121212");

@@ -1,9 +1,9 @@
-import {useRef, useState} from "react";
+import {useRef} from "react";
+import 'overlayscrollbars/overlayscrollbars.css';
 import {BrowserRouter} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Player from "./components/Player/Player";
 import Popup from "./components/UI/Popup";
-import Modal from "./components/UI/Modal";
 import AppRouter from "./components/AppRouter";
 import useEvent from "./hooks/useEvent";
 import Notify from "./components/UI/Notify";
@@ -12,8 +12,8 @@ import useModal from "./hooks/useModal";
 import useAverageBackgroundColor from "./hooks/useAverageBackgroundColor";
 import useStyledToggle from "./hooks/useStyledToggle";
 import useScrollbar from './hooks/useScrollbar'
-import 'overlayscrollbars/overlayscrollbars.css';
 import useSearch from "./hooks/useSearch";
+import Modal from "./components/UI/Modal";
 
 function App() {
     const scrollWrapperRef = useRef();
@@ -29,6 +29,7 @@ function App() {
     const sidebarToggle = useStyledToggle(sidebarRef);
     useScrollbar(scrollWrapperRef);
     const search = useSearch();
+
     function scrollHandle(event) {
         if (isScrollingEnabled) return;
         event.preventDefault();
@@ -54,32 +55,35 @@ function App() {
                     <Sidebar ref={sidebarRef}
                              showPopup={showPopup}
                              modal={modal}
-                             sidebarToggle={sidebarToggle}
-                             isOpen={sidebarToggle.isOpen}
-                             close={sidebarToggle.close}/>
-                    <div
-                        className={`fixed inset-0 bg-black opacity-50 pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
-                        onClick={() => sidebarToggle.close('translate-x-0', '-translate-x-full')}></div>
-                    <div className="flex flex-col flex-1 overflow-hidden" ref={contentWrapperRef}>
-                        <Header openSidebar={sidebarToggle.open} searchOnInput={search.onSearching}/>
+                             sidebarToggle={sidebarToggle}/>
+                    <div className={`fixed inset-0 bg-black opacity-50 pointer-events-auto z-20 sidebarHide:hidden cursor-default transition-opacity ${sidebarToggle.isOpen ? '' : 'hidden'}`}
+                         onClick={() => sidebarToggle.close('translate-x-0', '-translate-x-full')}></div>
+                    <div className="flex flex-col flex-1 overflow-hidden"
+                         ref={contentWrapperRef}>
+                        <Header openSidebar={sidebarToggle.open}
+                                modal={modal}
+                                searchOnInput={search.onSearching}/>
                         <main className="text-white relative overflow-y-hidden grow h-screen" ref={scrollWrapperRef}>
                             <div ref={gradientRef}
                                  className="absolute w-full h-full"></div>
-                            <div
-                                className="relative pt-[24px] pb-[48px] px-[32px] space-y-9 max-w-screen-5xl h-auto overflow-hidden">
-                                <AppRouter showPopup={showPopup}
-                                           showNotify={showNotify}
-                                           averageBackgroundColor={averageBackgroundColor}
-                                           searchQuery={search.query}
-                                           modal={modal}
-                                           toggleScrolling={toggleScrolling}/>
-                            </div>
+                            <AppRouter showPopup={showPopup}
+                                       showNotify={showNotify}
+                                       averageBackgroundColor={averageBackgroundColor}
+                                       searchQuery={search.query}
+                                       modal={modal}
+                                       toggleScrolling={toggleScrolling}/>
+
                         </main>
                     </div>
                 </div>
                 <Player/>
-                <Popup ref={popupRef}/>
-                {modal.isOpen && <Modal onClose={modal.close}/>}
+                <Popup ref={popupRef}
+                       openModal={modal.open}/>
+                {modal.isOpen &&
+                    <Modal onClose={modal.close} onOpen={modal.open}>
+                        {modal.content}
+                    </Modal>
+                }
                 <Notify ref={notifyRef}/>
             </div>
         </BrowserRouter>

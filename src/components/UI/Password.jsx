@@ -1,9 +1,9 @@
 import {useRef, useState} from 'react';
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 
-function Password({className}) {
+function Password({className, placeholder, onInput}) {
 
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
     const inputRef = useRef();
     function onClicked() {
         setIsVisible(!isVisible);
@@ -11,10 +11,12 @@ function Password({className}) {
     }
 
     return (
-        <div className={`flex flex-row justify-center items-center bg-[#272727] hover:bg-[#383838] ${className}`}>
+        <div className={`flex flex-row justify-center items-center bg-[#181818] ${className}`}>
             <input ref={inputRef}
+                   placeholder={placeholder}
+                   onInput={(event) => onInput(event.target.value)}
                    type="password"
-                   className="grow py-2 px-3 text-base bg-transparent text-[#cccccc] outline-none"/>
+                   className="grow py-2 px-3 text-lg bg-transparent text-[#cccccc] outline-none"/>
             <div onClick={onClicked} className="mr-2.5">
                 {isVisible
                     ? <VscEyeClosed className="w-7 h-7"/>

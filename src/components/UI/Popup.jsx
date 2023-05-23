@@ -3,8 +3,10 @@ import {forwardRef, useImperativeHandle, useRef, useState} from "react";
 import PopupTriangle from "./PopupTriangle";
 import usePosition from "../../hooks/usePopupPosition";
 import useAwayClick from "../../hooks/useAwayClick";
+import Reg from "../Reg";
+import Auth from "../Auth";
 
-function Popup(_, ref) {
+function Popup({openModal}, ref) {
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const nodeRef = useRef();
@@ -42,16 +44,22 @@ function Popup(_, ref) {
         setClasses(getHiddenClasses);
     }
 
+    function showAuthModal() {
+        setTarget(null);
+        setClasses(getHiddenClasses);
+        openModal(<Auth openModal={openModal}/>);
+    }
+
     return (
         <div ref={nodeRef}
              className={`fixed z-30 bg-[#0e72ea] text-white tracking-wide rounded-lg shadow-3xl p-4 w-[330px] transition duration-500 select-none ${classes}`}>
             <h3 className="text-lg font-bold mb-2">{title}</h3>
             <p className="text-base font-medium">{description}</p>
             <div className="mt-6 text-right">
-                <Button onClick={hide}>
+                <Button onClick={hide} className="hover:scale-105">
                     Не сейчас
                 </Button>
-                <Button primary>
+                <Button primary onClick={showAuthModal} className="bg-white hover:scale-105">
                     Вход
                 </Button>
             </div>

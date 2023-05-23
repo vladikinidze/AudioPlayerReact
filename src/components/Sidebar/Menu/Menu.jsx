@@ -23,9 +23,6 @@ function Menu({showPopup, sidebarToggle, modal}) {
             setActive: () => {
                 setActiveItem('Главная');
             },
-            // close: (event) => {
-            //     sidebarToggle.close('translate-x-0', '-translate-x-full')
-            // }
         },
         {
             href: "/search",
@@ -34,9 +31,6 @@ function Menu({showPopup, sidebarToggle, modal}) {
             setActive: () => {
                 setActiveItem('Поиск');
             },
-            // close: (event) => {
-            //     sidebarToggle.close('translate-x-0', '-translate-x-full')
-            // }
         },
         {
             href: "/library",

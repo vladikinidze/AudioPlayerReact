@@ -1,8 +1,11 @@
 import {useEffect, useRef} from "react";
 import useEvent from "../../hooks/useEvent";
 import {HiXMark} from "react-icons/hi2";
+import useScrollbar from "../../hooks/useScrollbar";
 
 function Modal({onClose: closeHandle, children, title}) {
+    const scrollWrapperRef = useRef();
+    useScrollbar(scrollWrapperRef);
     const ref = useRef();
     const contentRef = useRef();
     useEffect(() => {
@@ -28,11 +31,11 @@ function Modal({onClose: closeHandle, children, title}) {
     }
 
     return (
-        <div className="text-white fixed inset-0 bg-black/70 z-30 flex justify-center items-center opacity-0 transition-opacity duration-500"
+        <div className="text-white fixed inset-0 bg-black/70 z-50 flex justify-center items-center opacity-0 transition-opacity duration-500"
             role="dialog"
             ref={ref}
             onClick={close}>
-            <div className="flex flex-col relative bg-[#333] pb-5 h-80 w-[480px] rounded-xl -translate-y-10 transition-transform duration-500"
+            <div className="flex flex-col relative bg-[#333] pb-5 w-[480px] rounded-xl -translate-y-10 transition-transform duration-500"
                 onClick={(event) => event.stopPropagation()}
                 ref={contentRef}>
                 <button className="absolute right-0 p-3 text-neutral-500 hover:text-neutral-200"
@@ -42,9 +45,11 @@ function Modal({onClose: closeHandle, children, title}) {
                 <h1 className="text-2xl min-h-[55px] pt-5 pb-3 px-8 font-bold leading-relaxed border-b border-neutral-600">
                     {title}
                 </h1>
-                <div className="py-6 px-8 overflow-y-auto">
-                    {children}
-                </div>
+               <div ref={scrollWrapperRef}>
+                   <div className="py-6 px-8">
+                       {children}
+                   </div>
+               </div>
             </div>
         </div>
     );
