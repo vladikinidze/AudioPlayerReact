@@ -25,7 +25,7 @@ function AddUpdatePlaylist({modalClose, playlist = null, changed, isFavorite}) {
         if (playlist) {
             return playlist?.image !== plug;
         } else {
-            return fileUpload.file !== FileService.getFile(plug);
+            return fileUpload.file === FileService.getFile(plug);
         }
     });
 

@@ -154,8 +154,7 @@ function Player({averageColor, showNotify}) {
                                setValue={setCurrentTime}
                                trackProgress={trackProgress}/>
             </div>
-            <div className="flex flex-row items-center w-[250px] p-3">
-                <FaBars className={`${buttonsClasses}`}/>
+            <div className="flex flex-row items-center justify-end w-[250px] p-3">
                 <Volume setVolume={setVolume}/>
             </div>
         </div>

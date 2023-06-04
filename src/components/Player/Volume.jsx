@@ -36,7 +36,7 @@ function Volume({setVolume}) {
                 }
             </button>
             <Range ref={rangeRef}
-                   className="grow"
+                   className=" w-[150px]"
                    onChange={volume.onChange}
                    setValue={setVolume}
                    value={volume.value}

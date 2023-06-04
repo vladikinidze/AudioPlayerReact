@@ -62,41 +62,45 @@ function Search({showPopup, showNotify, modal, setColor, searchQuery, toggleScro
                     Начните вводить название интересующего трека или плейлиста
                 </p>
                 :
-                !searchedPlaylists?.length || !searchedTracks?.length
+                !searchedPlaylists?.length && !searchedTracks?.length
                     ?
                     <p className="text-3xl font-extrabold text-center tracking-wide mt-4 mb-8 mx-auto">
                         Треков или плейлистов с таким названием не нашлось
                     </p>
                     :
                     <div className="flex flex-col items-center">
-                        <Section title="Плейлисты"
-                                 playlists={searchedPlaylists}
-                                 isSearch={true}
-                                 toggleScrolling={toggleScrolling}
-                                 showNotify={showNotify}
-                                 showPopup={showPopup}
-                                 openModal={modal.open}
-                                 averageBackgroundColor={averageBackgroundColor}/>
-                        <div className="mt-6 w-full">
-                            <h2 className="text-2xl font-semibold mb-5">
-                                {/*hover:underline*/}
-                                {/*<Link to="/playlists/all">{title}</Link>*/}
-                                Треки
-                            </h2>
-                            {searchedTracks?.map((track, index) => (
-                                <Track key={track.id}
-                                       className="w-full border-y"
-                                       index={index + 1}
-                                       isFavorite={false}
-                                       isOwner={false}
-                                       explicit={track.explicit}
-                                       onClick={setTrackList}
-                                       track={track}
-                                       playlistId={track.playlistId}
-                                       id={track.id}
-                                />
-                            ))}
-                        </div>
+                        {searchedPlaylists?.length !== 0 &&
+                            <Section title="Плейлисты"
+                                     playlists={searchedPlaylists}
+                                     isSearch={true}
+                                     toggleScrolling={toggleScrolling}
+                                     showNotify={showNotify}
+                                     showPopup={showPopup}
+                                     openModal={modal.open}
+                                     averageBackgroundColor={averageBackgroundColor}/>
+                        }
+                        {searchedTracks?.length &&
+                            <div className={`${searchedPlaylists?.length !== 0 ? "mt-6" : ""} w-full`}>
+                                <h2 className="text-2xl font-semibold mb-5">
+                                    {/*hover:underline*/}
+                                    {/*<Link to="/playlists/all">{title}</Link>*/}
+                                    Треки
+                                </h2>
+                                {searchedTracks?.map((track, index) => (
+                                    <Track key={track.id}
+                                           className="w-full border-y"
+                                           index={index + 1}
+                                           isFavorite={false}
+                                           isOwner={false}
+                                           explicit={track.explicit}
+                                           onClick={setTrackList}
+                                           track={track}
+                                           playlistId={track.playlistId}
+                                           id={track.id}
+                                    />
+                                ))}
+                            </div>
+                        }
                     </div>
             }
         </>
