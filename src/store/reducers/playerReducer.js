@@ -5,16 +5,18 @@ import {
     SET_CURRENT_TIME,
     SET_DURATION,
     SET_VOLUME,
-    SET_MODE
+    SET_MODE,
+    SET_TRACK_IMAGE, FLOW
 } from "../../actions/playerActions";
 
 const initialState = {
     active: null,
     currentTime: 0,
     duration: 0,
-    volume: 100,
-    pause: false,
-    mode: 1
+    volume: (sessionStorage.getItem("volume") ?? localStorage.getItem("volume")) ?? 100,
+    pause: true,
+    image: '',
+    mode: FLOW
 }
 
 export const playerReducer = (state = initialState, action) => {
@@ -33,6 +35,8 @@ export const playerReducer = (state = initialState, action) => {
             return {...state, currentTime: action.payload}
         case SET_MODE:
             return {...state, mode: action.payload}
+        case SET_TRACK_IMAGE:
+            return {...state, image: action.payload}
         default:
             return state;
     }

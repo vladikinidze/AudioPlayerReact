@@ -9,16 +9,12 @@ function UseFetching(callback) {
             setIsLoading(true);
             await callback();
         } catch (e) {
-            setError(e.message);
+            setError(e.response)
         } finally {
             setIsLoading(false);
         }
     }
-    return [
-        fetching,
-        isLoading,
-        error
-    ];
+    return [fetching, isLoading, error];
 }
 
 export default UseFetching;

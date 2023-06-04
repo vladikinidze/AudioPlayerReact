@@ -3,10 +3,9 @@ import {forwardRef, useImperativeHandle, useRef, useState} from "react";
 import PopupTriangle from "./PopupTriangle";
 import usePosition from "../../hooks/usePopupPosition";
 import useAwayClick from "../../hooks/useAwayClick";
-import Reg from "../Reg";
 import Auth from "../Auth";
 
-function Popup({openModal}, ref) {
+function Popup({openModal, closeModal}, ref) {
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const nodeRef = useRef();
@@ -47,7 +46,7 @@ function Popup({openModal}, ref) {
     function showAuthModal() {
         setTarget(null);
         setClasses(getHiddenClasses);
-        openModal(<Auth openModal={openModal}/>);
+        openModal(<Auth openModal={openModal} onClose={closeModal}/>);
     }
 
     return (

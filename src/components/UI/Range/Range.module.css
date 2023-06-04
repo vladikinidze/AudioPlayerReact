@@ -2,7 +2,7 @@
     @apply relative;
 }
 .sliderContainer .bar {
-    @apply absolute z-[1] w-full h-[5px] bg-[#272727] overflow-hidden rounded-[10px] left-0 top-[0.535em];
+    @apply absolute z-[1] w-full h-[5px] bg-[#272727] overflow-hidden rounded-[10px] left-0 top-[0.6em];
 }
 .sliderContainer .bar .fill {
     @apply block w-[0%] h-full bg-[#989898];

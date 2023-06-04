@@ -8,8 +8,11 @@ export function debounce(callback, delay) {
 }
 
 export function getFormatTime(current) {
+    if (current === undefined) {
+        return "00:00";
+    }
     const minutes = Math.floor(current / 60).toString().padStart(2, '0');
-    const seconds = (current % 60).toFixed(0).toString().padStart(2, '0');
+    let seconds = (current % 60).toFixed(0).toString().padStart(2, '0');
     return minutes + ":" + seconds;
 }
 
@@ -33,4 +36,20 @@ export function shuffle(array) {
 
 export function getObjectIndex(object, objects) {
     return Object.values(objects).findIndex((elem) => elem.id === object.id)
+}
+
+export const styles = [
+    "",
+    "hidden sm:block",
+    "hidden lg:block",
+    "hidden xl:block",
+    "hidden 2xl:block",
+    "hidden 3xl:block",
+    "hidden 4xl:block",
+    "hidden 5xl:block",
+    "hidden 6xl:block"
+];
+
+export function getToken() {
+    return JSON.parse((sessionStorage.getItem("auth") ?? localStorage.getItem("auth")))?.accessToken;
 }

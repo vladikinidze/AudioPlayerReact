@@ -3,12 +3,7 @@ import {useRef} from "react";
 import useSubMenu from "../../hooks/useContextSubMenu";
 import {BsChevronRight} from "react-icons/bs";
 
-function ContextMenuItem({
-                             subMenuItems,
-                             children: text,
-                             onClick: clickHandler,
-                             onMouseEnter: closeOpenedPreviousSubmenu
-                         }) {
+function ContextMenuItem({subMenuItems, children: text, onClick: clickHandler, onMouseEnter: closeOpenedPreviousSubmenu}) {
     const ref = useRef(null);
     const subMenu = useSubMenu(ref, subMenuItems, closeOpenedPreviousSubmenu)
     let bgClass = subMenu.isOpen ? 'bg-[#3e3e3e]' : 'hover:bg-[#3e3e3e]';

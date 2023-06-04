@@ -1,17 +1,20 @@
 import FooterListItem from "./FooterListItem";
+import BugReport from "../../BugReport";
 
-function FooterList() {
+function FooterList({modal}) {
     const menu = [
         {
-            title: "Cookies"
-        },
-        {
-            title: "Privacy"
-        }];
+            title: "Сообщить об ошибке",
+            action: (event) => {
+                event.preventDefault();
+                modal.open(<BugReport modalClose={modal.close}/>);
+            },
+        }
+    ];
     return (
         <ul>
-            {menu.map(({title}) => (
-                <FooterListItem key={title}>
+            {menu.map(({title, action}) => (
+                <FooterListItem key={title} onClick={action}>
                     {title}
                 </FooterListItem>
             ))}
