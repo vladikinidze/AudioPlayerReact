@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {ImVolumeHigh, ImVolumeLow, ImVolumeMedium, ImVolumeMute2} from "react-icons/im";
 import Range from "../UI/Range/Range";
@@ -10,7 +10,7 @@ function Volume({setVolume}) {
     const [previousVolume, setPreviousVolume] = useState(100);
     const player = useSelector(state => state.player)
     const buttonsClasses = "fill-[#b3b3b3] hover:fill-[#1cb955]";
-    const volume = useRange(rangeRef, 100);
+    const volume = useRange((sessionStorage.getItem("volume") ?? localStorage.getItem("volume")) ?? 100);
 
     function onClickHandle(event) {
         if (player.volume === 0) {
@@ -40,7 +40,7 @@ function Volume({setVolume}) {
                    onChange={volume.onChange}
                    setValue={setVolume}
                    value={volume.value}
-                   initValue={100}/>
+                   initValue={(sessionStorage.getItem("volume") ?? localStorage.getItem("volume")) ?? 100}/>
         </>
     );
 }

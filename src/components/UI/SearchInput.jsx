@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {BsSearch} from "react-icons/bs";
-import {RxCross1} from "react-icons/rx";
+import {HiOutlineXMark} from "react-icons/hi2";
 
 function SearchInput({className, onInput}) {
     const inputRef = useRef();
@@ -34,7 +34,7 @@ function SearchInput({className, onInput}) {
                    className="grow outline-none"/>
             {isInput && inputRef.current?.value !== "" &&
                 <button onClick={onButtonClicked}>
-                    <RxCross1 className="h-4 w-4 ml-2 fill-[#A8A8A8] hover:fill-black"/>
+                    <HiOutlineXMark className="h-6 w-6 ml-2 -mr-0.5 stroke-black hover:stroke-[#1cb955]"/>
                 </button>}
         </div>
     );

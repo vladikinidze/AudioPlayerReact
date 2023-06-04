@@ -7,23 +7,21 @@ import Buttons from "./Buttons";
 import TrackProgress from "./TrackProgress";
 import Volume from "./Volume";
 import {
+    CIRCLE, CIRCLE_ONE,
+    FLOW,
     PAUSE,
     PLAY, SET_ACTIVE,
     SET_CURRENT_TIME,
-    SET_DURATION,
+    SET_DURATION, SET_TRACK_IMAGE,
     SET_VOLUME
 } from "../../actions/playerActions";
 import useFetching from "../../hooks/useFetching";
-import useAwayClick from "../../hooks/useAwayClick";
 import PlaylistService from "../../API/PlaylistService";
 import UserService from "../../API/UserService";
 import {getObjectIndex} from "../../utils";
 
 let audio;
-let playlist;
-let userDto;
-
-function Player() {
+function Player({averageColor, showNotify}) {
     const trackProgressRef = useRef();
     const trackProgress = useRange(() => trackProgressRef);
     const dispatch = useDispatch();
@@ -32,20 +30,25 @@ function Player() {
     const buttonsClasses = "w-4.75 h-4.75 ml-3 fill-[#b3b3b3] hover:fill-[#1cb955]";
     const [image, setImage] = useState();
     const [user, setUser] = useState();
+    const [isEnded, setIsEnded] = useState(false);
 
     const [fetchPlaylist, isLoading, error] = useFetching(async () => {
-        playlist = await PlaylistService.getById(player.active.parentPlaylistId);
-        setUser(playlist.user)
+        const playlist = await PlaylistService.getById(player.active.playlistId);
+        const user = await UserService.getById(playlist.userId)
+        setUser(user)
         setImage(playlist.image);
+        dispatch({type: SET_TRACK_IMAGE, payload: playlist.image})
     });
 
     function setAudio() {
         if (player.active) {
             audio.preload = "metadata";
             audio.crossOrigin = "anonymous";
-            audio.src = `https://localhost:7182/api/files/${player.active.audio}`;
-            audio.play();
+            audio.src = `https://localhost:7182/api/1.0/File/${player.active.audio}`;
             fetchPlaylist();
+            audio.play();
+            audio.volume = player.volume / 100;
+            dispatch({type: PLAY});
             audio.onloadeddata = () => {
                 dispatch({type: SET_DURATION, payload: audio.duration})
             }
@@ -53,24 +56,35 @@ function Player() {
                 setCurrentTime(audio.currentTime);
             }
             audio.onended = () => {
-                onEnded();
+                setIsEnded(true);
             }
         }
     }
 
-    function onEnded() {
-        const index = getObjectIndex(player.active, track.queue);
-        if (index === Object.values(track.queue).length - 1) {
-            dispatch({type: SET_ACTIVE, payload: track.queue[0]})
-
-        } else {
-            dispatch({type: SET_ACTIVE, payload: track.queue[index + 1]})
+    useEffect(() => {
+        if (isEnded && player.active) {
+            const index = getObjectIndex(player.active, track.queue);
+            if (player.mode === CIRCLE_ONE) {
+                dispatch({type: SET_ACTIVE, payload: track.queue[index]})
+                audio.play();
+            } else {
+                if (index === Object.values(track.queue).length - 1) {
+                    dispatch({type: SET_ACTIVE, payload: track.queue[0]})
+                    if (player.mode === FLOW) {
+                        dispatch({type: PAUSE})
+                        return;
+                    }
+                } else {
+                    dispatch({type: SET_ACTIVE, payload: track.queue[index + 1]})
+                }
+            }
+            setIsEnded(false);
         }
-    }
+    }, [isEnded])
 
     useEffect(() => {
         if (audio) {
-            if (player.pause) {
+            if (!player.pause) {
                 audio.play();
             } else {
                 audio.pause();
@@ -79,16 +93,24 @@ function Player() {
     }, [player.pause])
 
     useEffect(() => {
-        if (!audio) {
-            audio = new Audio();
-        } else {
-            setAudio();
+        if (player.active) {
+            if (!audio) {
+                audio = new Audio();
+            }
+            if (isEnded === false) {
+                setAudio();
+            }
         }
-    }, [player.active])
+    }, [isEnded, player.active])
 
     function setVolume(volume) {
         dispatch({type: SET_VOLUME, payload: volume})
         audio.volume = volume / 100;
+        if (sessionStorage.getItem("auth")) {
+            sessionStorage.setItem("volume", volume);
+        } else {
+            localStorage.setItem("volume", volume);
+        }
     }
 
     function setCurrentTime(time) {
@@ -100,15 +122,10 @@ function Player() {
         dispatch({type: SET_CURRENT_TIME, payload: Number(time)})
     }
 
-    useEffect(() => {
-        if (player.pause) {
-            dispatch({type: PLAY})
-        } else {
-            dispatch({type: PAUSE})
-        }
-    }, [])
-
     function play() {
+        if (isEnded === true) {
+            setIsEnded(prev => !prev);
+        }
         if (player.pause) {
             dispatch({type: PLAY});
             audio.play();
@@ -124,12 +141,14 @@ function Player() {
 
     return (
         <div
-            className="bg-[#181818] border-t border-solid border-[#484848] z-40 text-white pb-3 pt-2.5 px-6 flex justify-between items-center flex-wrap gap-x-6 gap-y-2">
+            className="bg-[#181818] border-t border-solid border-[#484848] z-40 text-white pb-3 pt-2.5 p-6 flex justify-between items-center flex-wrap gap-x-6 gap-y-2">
             <CurrentTrackInfo image={image ?? ""}
-                              title={player?.active.title}
+                              trackId={player?.active?.id}
+                              title={player?.active?.title}
                               user={user ?? ""}/>
-            <div className={`flex flex-col grow max-w-screen-lg`}>
+            <div className={`flex flex-col px-3 grow max-w-screen-xl`}>
                 <Buttons play={play}
+                         showNotify={showNotify}
                          isPlaying={player.pause}/>
                 <TrackProgress ref={trackProgressRef}
                                setValue={setCurrentTime}

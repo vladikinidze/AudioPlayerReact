@@ -1,0 +1,30 @@
+.uploadImage {
+    @apply w-[150px] relative overflow-hidden;
+}
+.imgImage {
+    @apply rounded-[50%];
+}
+.roundImage {
+    @apply absolute leading-[33px] overflow-hidden right-0 bottom-0;
+}
+.innerImage {
+    @apply w-[150px] h-[150px] flex items-center justify-center overflow-hidden opacity-0 rounded-[50%] hover:opacity-100;
+}
+.innerImage:hover {
+    background: rgb(72, 72, 72, 0.4);
+}
+.fileImage {
+    @apply w-[150px] h-[150px] rounded-[50%] absolute opacity-0;
+}
+.fileImage::-webkit-file-upload-button {
+    @apply cursor-pointer;
+}
+.uploadAudio {
+    @apply flex flex-col overflow-hidden justify-items-center items-center;
+}
+.uploadButton {
+    @apply relative overflow-hidden flex flex-row items-center;
+}
+.fileAudio {
+    @apply cursor-pointer absolute opacity-0 h-10 w-full rounded-full left-0 top-0;
+}

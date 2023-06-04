@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {getFormatTime} from "../../utils";
 
 
-function TrackProgress({audio, setValue, trackProgress}, ref) {
+function TrackProgress({setValue, trackProgress}, ref) {
     const player = useSelector(state => state.player);
 
     useEffect(() => {

@@ -1,6 +1,8 @@
 import {
+    CLEAR_USER,
     SET_EMAIL,
-    SET_GUID,
+    SET_FAVORITE_PLAYLIST,
+    SET_GUID, SET_IMAGE,
     SET_USERNAME
 } from "../../actions/userActions";
 
@@ -8,7 +10,9 @@ import {
 const initialState = {
     guid: "",
     email: "",
-    username: ""
+    image: "",
+    username: "",
+    favoritePlaylistId: ""
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -17,8 +21,14 @@ export const userReducer = (state = initialState, action) => {
             return {...state, guid: action.payload}
         case SET_EMAIL:
             return {...state, email: action.payload}
+        case SET_IMAGE:
+            return {...state, image: action.payload}
         case SET_USERNAME:
             return {...state, username: action.payload}
+        case SET_FAVORITE_PLAYLIST:
+            return {...state, favoritePlaylistId: action.payload}
+        case CLEAR_USER:
+            return initialState;
         default:
             return state;
     }

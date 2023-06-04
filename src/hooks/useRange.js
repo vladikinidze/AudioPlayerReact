@@ -1,7 +1,8 @@
 import {useState} from 'react';
 
 function UseRange({initValue}) {
-    const [value, setValue] = useState(initValue);
+    const [value, setValue] = useState(Number(initValue));
+
     function onChange(value, callback) {
         setValue(value);
         callback(value);

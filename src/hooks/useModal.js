@@ -1,21 +1,31 @@
 import {useState} from "react";
 
-
-function UseModal() {
+function UseModal(ref, contentRef) {
     const [isOpen, setIsOpen] = useState();
-    function open() {
+    const [content, setContent] = useState();
+    function open(children) {
+        setContent(children);
         setIsOpen(true);
     }
 
     function close() {
-        setIsOpen(false);
+        animate(true);
+        setTimeout(() => setIsOpen(false), 500)
+    }
+
+    function animate(isClosing = false) {
+        ref.current?.classList.toggle('opacity-0', isClosing);
+        contentRef.current?.classList.toggle('-translate-y-10', isClosing);
     }
 
     return {
+        content,
         open,
         close,
-        isOpen
+        isOpen,
+        ref,
+        contentRef,
+        animate
     };
 }
-
 export default UseModal;

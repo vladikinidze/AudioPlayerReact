@@ -1,18 +1,6 @@
 import Playlist from "./Playlist/Playlist";
 import {Link} from "react-router-dom";
-
-
-const styles = [
-    "",
-    "hidden sm:block",
-    "hidden lg:block",
-    "hidden xl:block",
-    "hidden 2xl:block",
-    "hidden 3xl:block",
-    "hidden 4xl:block",
-    "hidden 5xl:block",
-    "hidden 6xl:block"
-];
+import {styles} from "../utils";
 
 function Section({
                      title,
@@ -25,15 +13,15 @@ function Section({
                      averageBackgroundColor,
                      toggleScrolling
                  }) {
-
     return (
         <div>
             <div className="flex flex-wrap justify-between items-end gap-x-6 mb-[18px]">
-
                 <div>
                     {title &&
-                        <h2 className="text-2xl font-semibold hover:underline">
-                            <Link to="/playlists/all">{title}</Link>
+                        <h2 className="text-2xl font-semibold ">
+                            {/*hover:underline*/}
+                            {/*<Link to="/playlists/all">{title}</Link>*/}
+                            {title}
                         </h2>
                     }
                     {description &&
@@ -52,8 +40,15 @@ function Section({
                 {playlists?.map((playlist, index) => (
                     <Playlist key={playlist.id}
                               {...playlist}
+                              user={
+                                  {
+                                      username: playlist.user,
+                                      userId: playlist.userId
+                                  }
+                              }
                               className={!isSearch ? styles[index % 10] : ""}
                               toggleScrolling={toggleScrolling}
+                              trackList={playlist.tracks}
                               showNotify={showNotify}
                               showPopup={showPopup}
                               openModal={openModal}

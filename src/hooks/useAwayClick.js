@@ -7,8 +7,7 @@ function UseAwayClick(ref, handler, shouldHandle = true) {
         const handle = shouldHandle instanceof Function
             ? shouldHandle(event)
             : shouldHandle;
-
-        if (handle && !ref.current.contains(event.target)) {
+        if (handle && !ref.current?.contains(event.target)) {
             handler();
         }
     }
