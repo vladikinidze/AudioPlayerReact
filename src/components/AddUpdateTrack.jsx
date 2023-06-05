@@ -35,7 +35,7 @@ function AddUpdateTrack({playlistId, modal, changed, track = null}) {
     const [fetch, isLoading, fetchError] = useFetching(async () => {
         let duration;
         if (document.getElementById('audio')) {
-            duration = String(Math.round(document.getElementById('audio').duration)).replace(".", ",");
+            duration = Math.round(document.getElementById('audio').duration);
         }
         if (track) {
             await TrackService.update(track.id, title, explicit, playlistId, fileUpload.file, duration);
