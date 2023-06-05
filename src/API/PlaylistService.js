@@ -21,13 +21,13 @@ class PlaylistService {
     }
 
     static async getUserPlaylists(userId) {
-        const response = await axios.get(root + playlist + user + "/" + userId);
+        const response = await axios.get(root + playlist + user + userId);
         return response.data;
     }
 
     static async getById(playlistId) {
         const token = getToken();
-        const response = await axios.get(root + playlist + '/' + playlistId,
+        const response = await axios.get(root + playlist + playlistId,
             token && {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -75,7 +75,7 @@ class PlaylistService {
 
     static async delete(id) {
         const token = getToken();
-        const response = await axios.delete(root + playlist + "/" + id,
+        const response = await axios.delete(root + playlist + id,
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -86,7 +86,7 @@ class PlaylistService {
 
     static async addPlaylist(id) {
         const token = getToken();
-        const response = await axios.post(root + playlist + user + addPlaylist + "/" + id, {},
+        const response = await axios.post(root + playlist + user + addPlaylist + id, {},
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -97,7 +97,7 @@ class PlaylistService {
 
     static async deletePlaylist(id) {
         const token = getToken();
-        const response = await axios.delete(root + playlist + user + deletePlaylist + "/" + id,
+        const response = await axios.delete(root + playlist + user + deletePlaylist + id,
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -111,7 +111,7 @@ class PlaylistService {
         if (!token) {
             return false;
         }
-        const response = await axios.get(root + playlist + user + isAdded + "/" + playlistId,
+        const response = await axios.get(root + playlist + user + isAdded + playlistId,
             token && {
                 headers: {
                     "Authorization": `Bearer ${token}`
