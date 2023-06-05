@@ -29,7 +29,7 @@ class TrackService {
 
     static async getByPlaylistId(playlistId) {
         const token = getToken();
-        const response = await axios.get(root + track + playlist +  '/' + playlistId,
+        const response = await axios.get(root + track + playlist + playlistId,
             token && {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -77,7 +77,7 @@ class TrackService {
 
     static async addToFavorite(trackId) {
         const token = getToken();
-        const response = await axios.post(root + track + user + addToFavorite + "/" + trackId, {},
+        const response = await axios.post(root + track + user + addToFavorite + trackId, {},
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -88,7 +88,7 @@ class TrackService {
 
     static async deleteFromFavorite(trackId) {
         const token = getToken();
-        const response = await axios.delete(root + track + user + deleteFromFavorite + "/" + trackId,
+        const response = await axios.delete(root + track + user + deleteFromFavorite + trackId,
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -99,7 +99,7 @@ class TrackService {
 
     static async isFavorite(trackId) {
         const token = getToken();
-        const response = await axios.get(root + track + user + isFavorite + '/' + trackId,
+        const response = await axios.get(root + track + user + isFavorite + trackId,
             {
                 headers: {
                     "Authorization": `Bearer ${token}`

@@ -4,12 +4,12 @@ import axios from "axios";
 
 class FileService {
     static getFile(filename) {
-        return root + file + "/" + filename;
+        return root + file + filename;
     }
 
     static async downloadFile(filename) {
         const token = getToken();
-        const response = await axios.get(root + file + download + "/" + filename, {
+        const response = await axios.get(root + file + download + filename, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
