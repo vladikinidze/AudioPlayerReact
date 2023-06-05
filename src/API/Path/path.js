@@ -1,5 +1,5 @@
 // export const root = "https://localhost:7182/api/1.0";
- export const root = "http://vladikinidze-001-site1.ctempurl.com/api/1.0";
+ export const root = "https://vladikinidze.somee.com//api/1.0";
  export const reactRoot = "https://vladikinidze.netlify.app/";
 export const user = "/User/";
 export const login = "/Login/";
