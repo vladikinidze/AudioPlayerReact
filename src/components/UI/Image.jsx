@@ -7,7 +7,7 @@ function Image({url, className}, ref) {
              ref={ref}
              className={`rounded shadow-lg ${className}`}
              crossOrigin="anonymous"
-             referrerPolicy="no-referrer-when-downgrade"
+             referrerPolicy="no-referrer"
              alt=""
         />
     );
