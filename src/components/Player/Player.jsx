@@ -45,6 +45,7 @@ function Player({averageColor, showNotify}) {
         if (player.active) {
             audio.preload = "metadata";
             audio.crossOrigin = "anonymous";
+            audio.referrerPolicy = "no-referrer-when-downgrade";
             audio.src = FileService.getFile(player.active.audio);
             fetchPlaylist();
             audio.play();
