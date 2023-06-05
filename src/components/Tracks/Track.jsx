@@ -10,6 +10,8 @@ import {BsDownload, BsExplicit} from "react-icons/bs";
 import Delete from "../Delete";
 import FileService from "../../API/FileService";
 import {Link} from "react-router-dom";
+import useFetching from "../../hooks/useFetching";
+import TrackService from "../../API/TrackService";
 
 
 function Track({id, isOwner, explicit, index, onClick, track, playlistId, isFavorite, className, modal, changed}) {
@@ -18,6 +20,10 @@ function Track({id, isOwner, explicit, index, onClick, track, playlistId, isFavo
     const dispatch = useDispatch();
     const player = useSelector(state => state.player);
     const app = useSelector(state => state.app);
+
+    const [deleteFromFavorite, deleteLoading, deleteError] = useFetching(async () => {
+        const response = await TrackService.deleteFromFavorite(id);
+    });
 
     function isCurrentTrack() {
         return JSON.stringify(player.active) === JSON.stringify(track);
@@ -72,7 +78,13 @@ function Track({id, isOwner, explicit, index, onClick, track, playlistId, isFavo
                                        }}/>
                     }
                     <HiXMark className="h-6 w-6 hover:fill-[#1cb955] mr-1.5"
-                             onClick={() => modal.open(<Delete track={track} changed={changed} modal={modal}/>)}/>
+                             onClick={() => {
+                                 if (isFavorite) {
+                                     deleteFromFavorite();
+                                 } else {
+                                     modal.open(<Delete track={track} changed={changed} modal={modal}/>)
+                                 }
+                             }}/>
                     <BsDownload className="w-4.75. w-4.75. hover:fill-[#1cb955] mr-4"
                                 onClick={() => {
                                     let element = document.createElement('a');

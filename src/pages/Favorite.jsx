@@ -150,6 +150,7 @@ function Favorite({showPopup, showNotify, modal, toggleScrolling, averageBackgro
                     {playlist?.tracks?.length
                         ? <Tracks modal={modal}
                                   isFavorite={true}
+                                  isOwner={true}
                                   changed={setChanged}
                                   trackList={playlist.tracks}/>
                         :
