@@ -1,4 +1,5 @@
-export const root = "https://localhost:7182/api/1.0";
+// export const root = "https://localhost:7182/api/1.0";
+ export const root = "http://vladikinidze-001-site1.ctempurl.com/";
 export const user = "/User";
 export const login = "/Login";
 export const register = "/Register";
