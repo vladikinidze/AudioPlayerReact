@@ -13,7 +13,7 @@ import {getToken} from "../utils";
 class UserService {
     static async getById(userId) {
         const response = await
-            axios.get(root + user + userId);
+            axios.get(root + user + '/' + userId);
         return response.data;
     }
 
