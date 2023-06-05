@@ -19,6 +19,7 @@ import useFetching from "../../hooks/useFetching";
 import PlaylistService from "../../API/PlaylistService";
 import UserService from "../../API/UserService";
 import {getObjectIndex} from "../../utils";
+import FileService from "../../API/FileService";
 
 let audio;
 function Player({averageColor, showNotify}) {
@@ -44,7 +45,7 @@ function Player({averageColor, showNotify}) {
         if (player.active) {
             audio.preload = "metadata";
             audio.crossOrigin = "anonymous";
-            audio.src = `https://localhost:7182/api/1.0/File/${player.active.audio}`;
+            audio.src = FileService.getFile(player.active.audio);
             fetchPlaylist();
             audio.play();
             audio.volume = player.volume / 100;

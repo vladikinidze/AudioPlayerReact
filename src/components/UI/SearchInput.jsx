@@ -1,6 +1,7 @@
 import {useRef, useState} from "react";
 import {BsSearch} from "react-icons/bs";
 import {HiOutlineXMark} from "react-icons/hi2";
+import {reactRoot} from "../../API/Path/path";
 
 function SearchInput({className, onInput}) {
     const inputRef = useRef();
@@ -17,7 +18,7 @@ function SearchInput({className, onInput}) {
     function onInputed(event) {
         onInput(event.target.value);
         setIsInput(true);
-        if (window.location.href !== "http://localhost:3000/search") {
+        if (window.location.href !== reactRoot + "/search") {
             document.querySelector('nav a:nth-child(2)').click();
         }
     }

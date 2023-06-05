@@ -8,6 +8,7 @@ import Description from "./Description";
 import {useNavigate} from "react-router-dom";
 import FileService from "../../API/FileService";
 import {useSelector} from "react-redux";
+import {reactRoot, root} from "../../API/Path/path";
 
 
 function Playlist({id, username, userId, className, image, title, trackList, description,
@@ -31,7 +32,7 @@ function Playlist({id, username, userId, className, image, title, trackList, des
             {
                 text: 'Копировать ссылку на плейлист',
                 action: () => {
-                    navigator.clipboard.writeText(title).then(() => {
+                    navigator.clipboard.writeText(reactRoot + `/playlists/${id}`).then(() => {
                         menu.close();
                         showNotify('Ссылка скопирована');
                     })

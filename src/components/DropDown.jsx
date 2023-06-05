@@ -4,6 +4,7 @@ import {AiFillCaretDown, AiFillCaretUp} from "react-icons/ai";
 import useAwayClick from "../hooks/useAwayClick";
 import useEvent from "../hooks/useEvent";
 import {TbDotsVertical} from "react-icons/tb";
+import FileService from "../API/FileService";
 
 function DropDown({text, image, items, classname}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ function DropDown({text, image, items, classname}) {
                 onClick={() => setIsOpen(prev => !prev)}>
                 <div className="flex flex-row items-center">
                     <Image className="rounded-full w-[30px] -ml-1 mr-3"
-                           url={`https://localhost:7182/api/1.0/File/${image}`}/>
+                           url={FileService.getFile(image)}/>
                     <p className="truncate max-w-[150px]">{text}</p>
                 </div>
                 {isOpen

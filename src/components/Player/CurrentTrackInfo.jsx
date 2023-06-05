@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import UserService from "../../API/UserService";
 import {FaHeart} from "react-icons/fa";
 import {useSelector} from "react-redux";
+import FileService from "../../API/FileService";
 
 function CurrentTrackInfo({image, title, user, trackId, averageColor}) {
     const [favorite, setFavorite] = useState();
@@ -66,7 +67,7 @@ function CurrentTrackInfo({image, title, user, trackId, averageColor}) {
     return (
         <div className="flex flex-row items-center justify-between w-[250px]">
             <div className="flex flex-row items-center">
-                <img src={`${image ? "https://localhost:7182/api/1.0/File/" + image : ""}`}
+                <img src={`${image ? FileService.getFile(image) : ""}`}
                      className="w-[65px] h-[65px] rounded-sm mt-0.5"
                      id="currentTrackImage"
                      alt=""/>
